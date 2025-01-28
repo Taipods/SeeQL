@@ -18,12 +18,11 @@ Reminder
 --------
 
 > Watch the video
->
 
 Issues
 ------
 
-> Everyone is very new to encoding extensions. 
+> Everyone is very new to encoding extensions.
 
 Progress
 ----------
@@ -57,9 +56,6 @@ Everyone should have a brief understanding of VSCode extension somewhat
 >
 > If time permits, add first feature of checking stats of SQL statements.
 
-> You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
-
 Requests and proposals
 ----------------------
-
-> Ideas, suggestions, enquiries for complementary information or requests for the allocation of additional resources.
+N/A
