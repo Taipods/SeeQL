@@ -1,46 +1,61 @@
 Weekly Report
 =============
 
-**Submitted by** Name
+**Submitted by** Names(s): James Malvar, Annika Lam, Samriddhi Sivakumar, Tai Ta, Elio Khoury,
 
 **Period** mm/dd/aaaa → mm/dd/aaaa
 
-Urgent!
+Goals for This Week
 -------
 
-> Immediate feedback or action is needed
+> Living Document
+>
+> Weekly Report
+>
+> Gain understanding of vscode extension coding through video
 
 Reminder
 --------
 
-> Stil waiting for...
+> Watch the video
 >
-> Waiting for... since...
->
-> Waiting for... until...
 
 Issues
 ------
 
-> You shall report here the problems encountered during the reporting period and expected to be resolved in a regular way, with no need for the additional resources. Suggest an action plan.
+> Everyone is very new to encoding extensions. 
 
-Daily work
+Progress
 ----------
 
 > You shall list here your own activities as well as activities of the unit that reports to you for the reporting period. Support your report with facts and numbers highlighting the achieved results.
 
-### Monday
-
-### Tuesday
-
-### Wednesday
-
 ### Thursday
+Description and Use Cases for SEEQL Document
 
 ### Friday
+Non-Functional and External Requirements
+
+### Monday
+ReadMe Md File
+
+### Tuesday
+Wrap up and Weekly Progress Report
+
+### Wednesday
+N/A
 
 Plans for next week
 -------------------
+Everyone should have a brief understanding of VSCode extension somewhat
+
+> Start Designing - Use Figma
+>
+> Plan project Architecture
+>
+> Start code that process queries
+>
+> If time permits, add first feature of checking stats of SQL statements.
 
 > You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
 
