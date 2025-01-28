@@ -5,10 +5,10 @@ Weekly Report
 
 **Period** mm/dd/aaaa → mm/dd/aaaa
 
-Urgent!
+Goals for This Week
 -------
 
-> Immediate feedback or action is needed
+> Work needed to be complete this week
 
 Reminder
 --------
@@ -24,7 +24,7 @@ Issues
 
 > You shall report here the problems encountered during the reporting period and expected to be resolved in a regular way, with no need for the additional resources. Suggest an action plan.
 
-Daily work
+Progress
 ----------
 
 > You shall list here your own activities as well as activities of the unit that reports to you for the reporting period. Support your report with facts and numbers highlighting the achieved results.
