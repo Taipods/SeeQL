@@ -39,6 +39,18 @@ Progress
 
 ### Friday
 
+Individual
+-----------
+## James
+
+## Tai
+
+## Elio
+
+## Annikalm
+
+## Samriddhi
+
 Plans for next week
 -------------------
 
