@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "seeql.helloWorld",
-        "title": "Hello World"
+        "command": "seeql.createDiagram",
+        "title": "Create a Diagram of a Create SQL Statement"
       }
     ]
   },
