@@ -1,0 +1,4 @@
+CREATE TABLE USERS (
+    id INT PRIMARY KEY,
+    USERNAME varchar(50)
+);
