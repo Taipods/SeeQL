@@ -15,11 +15,13 @@
     "commands": [
       {
         "command": "seeql.createDiagram",
-        "title": "SeeQL: Create a Diagram of a Create SQL Statement"
+        "category": "SeeQL",
+        "title": "Create a Diagram of a Create SQL Statement"
       },
       {
         "command": "seeql.createRelationalAlgebra",
-        "title": "SeeQL: Create a Relational Algebra Diagram"
+        "category": "SeeQL",
+        "title": "Create a Relational Algebra Diagram"
       }
     ]
   },

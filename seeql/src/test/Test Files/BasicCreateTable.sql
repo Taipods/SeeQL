@@ -2,3 +2,13 @@ CREATE TABLE USERS (
     id INT PRIMARY KEY,
     USERNAME varchar(50)
 );
+
+CREATE TABLE YUGAMI (
+    id INT PRIMARY KEY,
+    USERNAME varchar(50)
+);
+
+CREATE TABLE MANGA   (
+    id INT PRIMARY KEY,
+    USERNAME varchar(50)
+);
