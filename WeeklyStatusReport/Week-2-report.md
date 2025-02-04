@@ -1,7 +1,7 @@
 Weekly Report
 =============
 
-**Submitted by** James Malvar, Annika Lam, Samriddhi Sivakumar, Tai Ta, Elio Khoury,
+**Submitted by** James Malvar, Annika Lam, Samriddhi Sivakumar, Tai Ta, Elio Khoury
 
 **Period** 01/30/2025 → 02/05/2025
 
@@ -71,14 +71,17 @@ Goals for next week:
 Plans for next week
 -------------------
 
-> You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
-> Visualizer for the ER Diagram should be done - urgent
-> Finalize visual featuers of the tables. Specifically when we run queries. - important
-> Start up Relational Algebra - important
-> Finish up next document for next week - important
+- Visualizer for the ER Diagram should be done - urgent
+
+- Finalize visual featuers of the tables. Specifically when we run queries. - important
+
+- Start up Relational Algebra - important
+
+- Finish up next document for next week - important
 
 Requests and proposals
 ----------------------
 
-> Seperate Commands in different Type Script Files
-> Create Code Interfaces to make working in parallel easier
+- Seperate Commands in different Type Script Files
+
+- Create Code Interfaces to make working in parallel easier
