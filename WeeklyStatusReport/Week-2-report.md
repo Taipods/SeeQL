@@ -8,23 +8,29 @@ Weekly Report
 Goals for This Week
 -------
 
-> Work needed to be complete this week
-> Adding Basic Command Lines - Specifically Create ER Diagram, Relation Diagram, Open Database, Run SQL Query
-> Embedding SQLite or using it as a Dependency in our Code
-> Basic Webview implemented for running commands
-> Add the Parser
-> Finishing up the Architecture Part of the Living Document
-> Determine how we are going to do code so we can run in parallel
+Work needed to be complete this week
+
+- Adding Basic Command Lines - Specifically Create ER Diagram, Relation Diagram, Open Database, Run SQL Query
+
+- Embedding SQLite or using it as a Dependency in our Code
+
+- Basic Webview implemented for running commands
+
+- Add the Parser
+
+- Finishing up the Architecture Part of the Living Document
+
+- Determine how we are going to do code so we can run in parallel
 
 Reminder
 --------
-> Nothing Much To Note
-> Make sure to update on Jira about tasks that are being done.
+Nothing Much To Note. Make sure to update on Jira about tasks that are being done.
 
 Issues
 ------
-> Guys please run npm run compile. - James
-> Do not commit 100 mb file into GIT - Tai
+- Run NPM run compile after making any changes - James
+
+- Do not commit >100 mb file into GIT - Tai
 
 Progress
 ----------
@@ -46,6 +52,7 @@ Progress:
 - Research on creating VSCode extension - Thursday/Friday
 
 - Worked on chosen architecture design, code guidelines, and documentation for the project architecture - Sunday/Monday
+-   Issue: No CSS linter to check against Google's style guidelines
 
 Goals for the week: 
 
