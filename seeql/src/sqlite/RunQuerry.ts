@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import * as sqlite3 from 'sqlite3';
 import { generateTableHTML } from './DBwebview/view';
 
-
 /*
 TODO: Disscuss How we want to do this process
 Update discriptions later!
