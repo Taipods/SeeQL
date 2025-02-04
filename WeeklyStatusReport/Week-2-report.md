@@ -1,9 +1,9 @@
 Weekly Report
 =============
 
-**Submitted by** Name
+**Submitted by** James Malvar, Annika Lam, Samriddhi Sivakumar, Tai Ta, Elio Khoury,
 
-**Period** mm/dd/aaaa → mm/dd/aaaa
+**Period** 01/30/2025 → 02/05/2025
 
 Goals for This Week
 -------
