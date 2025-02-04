@@ -20,6 +20,14 @@
       {
         "command": "seeql.createRelationalAlgebra",
         "title": "SeeQL: Create a Relational Algebra Diagram"
+      },
+      {
+        "command": "sqlExtension.openDb",
+        "title": "Open Database"
+      },
+      {
+        "command": "sqlExtension.runQuery",
+        "title": "Run SQL Query"
       }
     ]
   },
