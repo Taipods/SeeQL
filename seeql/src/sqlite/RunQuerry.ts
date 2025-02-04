@@ -18,34 +18,32 @@ export async function runQuery(db: sqlite3.Database) {
       vscode.window.showErrorMessage('No active SQL file.');
       return;
     }
+    const sql = editor.document.getText();
+    db.all(sql, [], (err: any, rows: any[]) => {
+    if (err) {
+        vscode.window.showErrorMessage('Query error: ' + err.message);
+    } else {
+        const panel = vscode.window.createWebviewPanel(
+        'sqliteResults',
+        'SQLite Query Results',
+        vscode.ViewColumn.One,
+        { enableScripts: true }
+    );
 
-          const sql = editor.document.getText();
-          db.all(sql, [], (err: any, rows: any[]) => {
-              if (err) {
-                  vscode.window.showErrorMessage('Query error: ' + err.message);
-              } else {
-                  const panel = vscode.window.createWebviewPanel(
-                      'sqliteResults',
-                      'SQLite Query Results',
-                      vscode.ViewColumn.One,
-                      { enableScripts: true }
-                  );
-
-                  panel.webview.html = `
-                      <html>
-                      <head>
-                          <style>
-                              table { width: 100%; border-collapse: collapse; }
-                              th, td { border: 1px solid black; padding: 8px; text-align: left; }
-                              th { background-color: #f2f2f2; }
-                          </style>
-                      </head>
-                      <body>
-                          <h2>Query Results</h2>
-                          ${generateTableHTML(rows)}
-                      </body>
-                      </html>
-                  `;
+    panel.webview.html =
+        `<html>
+            <head>
+                <style>
+                    table { width: 100%; border-collapse: collapse; }
+                    th, td { border: 1px solid black; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                </style>
+            </head>
+                <body>
+                    <h2>Query Results</h2>
+                        ${generateTableHTML(rows)}
+                </body>
+            </html>`;
               }
           });
         }

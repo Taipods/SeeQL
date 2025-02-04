@@ -7,7 +7,7 @@ import { createRelationalAlgebra } from './commands/createRelationalAlgebra';
 import { pullDB } from './sqlite/DBManger';
 import { runQuery } from './sqlite/RunQuerry';
 
-let db: sqlite3.Database | null = null; //constant for Querry Runner if is able to run
+let db: sqlite3.Database | null = null; // constant for DB
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -21,6 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 
+	// Updates/Pull DB from File
 	context.subscriptions.push(
 			vscode.commands.registerCommand('sqlExtension.openDb', async () => {
 				db = await pullDB();
