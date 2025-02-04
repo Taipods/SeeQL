@@ -40,6 +40,9 @@ exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
 const createDiagram_1 = require("./commands/createDiagram");
 const createRelationalAlgebra_1 = require("./commands/createRelationalAlgebra");
+const DBManger_1 = require("./sqlite/DBManger");
+const RunQuerry_1 = require("./sqlite/RunQuerry");
+let db = null; //constant for Querry Runner if is able to run
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 function activate(context) {
@@ -49,9 +52,27 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
+    context.subscriptions.push(vscode.commands.registerCommand('sqlExtension.openDb', async () => {
+        db = await (0, DBManger_1.pullDB)();
+        if (db) {
+            vscode.window.showInformationMessage("Open sesame");
+        }
+    }));
+    context.subscriptions.push(vscode.commands.registerCommand('sqlExtension.runQuery', async () => {
+        if (!db) {
+            vscode.window.showInformationMessage("Brother where my promised DB dawg");
+            return;
+        }
+        (0, RunQuerry_1.runQuery)(db);
+    }));
     context.subscriptions.push(vscode.commands.registerCommand('seeql.createDiagram', createDiagram_1.createDiagram));
     context.subscriptions.push(vscode.commands.registerCommand('seeql.createRelationalAlgebra', createRelationalAlgebra_1.createRelationalAlgebra));
 }
 // This method is called when your extension is deactivated
-function deactivate() { }
+function deactivate() {
+    // Close down Database given one is open
+    if (db) {
+        db.close();
+    }
+}
 //# sourceMappingURL=extension.js.map
