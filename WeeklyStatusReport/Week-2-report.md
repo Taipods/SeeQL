@@ -39,7 +39,25 @@ Individual
 
 ## Elio
 
-## Annikalm
+## Annika
+
+Progress:
+
+- Research on creating VSCode extension - Thursday/Friday
+
+- Worked on chosen architecture design, code guidelines, and documentation for the project architecture - Sunday/Monday
+
+Goals for the week: 
+
+- Creating a database from a SQL file using CREATE statements
+
+- Clean up frontend for visualizing query results
+
+Goals for next week:
+
+- Return row/column stats for query results - Tues 2/11
+
+- Testing for processing queries/create database - Wednesday 2/12
 
 ## Samriddhi
 
