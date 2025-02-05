@@ -42,6 +42,8 @@ Individual
 ## James
 
 ## Tai
+- Made function to open .db files and store inside extension. (monday)
+- Create a working query compiler (not fully tested). (monday)
 
 ## Elio
 
