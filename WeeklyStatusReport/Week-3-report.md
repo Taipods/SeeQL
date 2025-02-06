@@ -1,26 +1,31 @@
 Weekly Report
 =============
 
-**Submitted by** Name
+**Submitted by** James, Samriddhi, Annika, Tai, Elio
 
 **Period** mm/dd/aaaa → mm/dd/aaaa
 
 Goals for This Week
 -------
 
-> Work needed to be complete this week
+> Elio finishes up the Parser
+> James needs to start the visualization
+> Change SQL file selector from file directory selector to file selector
+> Finish up ER Diagram if possible by Monday
+> Add buttons for SQL Queries
+> Listing Stats needs to be done
+> Rename Classes
+> Redo UI
+> Display Queries
+> Figure out joins in terms of queries
 
 Reminder
 --------
-
-> Stil waiting for...
->
-> Waiting for... since...
->
-> Waiting for... until...
+>It is still snowing
 
 Issues
 ------
+
 
 > You shall report here the problems encountered during the reporting period and expected to be resolved in a regular way, with no need for the additional resources. Suggest an action plan.
 
@@ -58,5 +63,6 @@ Plans for next week
 
 Requests and proposals
 ----------------------
+> Rename the group
 
 > Ideas, suggestions, enquiries for complementary information or requests for the allocation of additional resources.
