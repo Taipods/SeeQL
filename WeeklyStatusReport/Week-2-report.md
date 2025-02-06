@@ -82,6 +82,7 @@ Progress:
 - Collaborated with team on the living document - Monday/Tuesday
 - Looked into the specifics of creating a VSCode extension and embedding sqlite into our database - Wednesday
 - Reviewed and ensured the functionality of the existing codebase - Thursday/Friday
+
 Goals for next week:
 - Work on the visualizer for query results
 - Test out the ER diagram and RA feature
