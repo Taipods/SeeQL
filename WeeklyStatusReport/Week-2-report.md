@@ -52,6 +52,9 @@ Individual
 - Create a working query compiler (not fully tested). (monday)
 
 ## Elio
+- Worked on document with the team
+- Implemented a text query parser for ER diagram creation - Tuesday
+- Next goals: finish and test the query parser for ER diagram
 
 ## Annika
 
