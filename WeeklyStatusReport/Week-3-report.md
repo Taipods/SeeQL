@@ -58,7 +58,7 @@ Individual
 
 Plans for next week
 -------------------
-
+- Talk about impleamentation of Joins and holding Multiple database for possible joins.
 > You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
 
 Requests and proposals
