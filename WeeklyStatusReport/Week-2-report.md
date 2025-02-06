@@ -40,8 +40,16 @@ Progress
 Individual
 -----------
 ## James
-
+- Updated Jira Task - Thursday
+- Created Webview to display Create Table SQL Files - Saturday
+- Seperated Commands in extension.ts to ts files in Command Folders - Friday
+- Started on Webview for Create ER Diagram outputs the SQL File - Monday
+- Worked on Document alongside Team - Monday, Tuesday
+- Worked on Parser alongside Elio - Wednesday
+- PM: Facilitate meeting, set goals
 ## Tai
+- Made function to open .db files and store inside extension. (monday)
+- Create a working query compiler (not fully tested). (monday)
 
 ## Elio
 
