@@ -7,17 +7,26 @@ Weekly Report
 
 Goals for This Week
 -------
-
 > Elio finishes up the Parser
-> James needs to start the visualization
+> 
+> James needs to start the visualizatio
+> 
 > Change SQL file selector from file directory selector to file selector
+> 
 > Finish up ER Diagram if possible by Monday
+> 
 > Add buttons for SQL Queries
+> 
 > Listing Stats needs to be done
+> 
 > Rename Classes
+> 
 > Redo UI
+> 
 > Display Queries
+> 
 > Figure out joins in terms of queries
+> 
 
 Reminder
 --------
