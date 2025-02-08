@@ -38,6 +38,7 @@ exports.CreateDB = CreateDB;
 const sqlite3 = __importStar(require("sqlite3"));
 const vscode = __importStar(require("vscode"));
 const path = __importStar(require("path"));
+const RunQuerry_1 = require("./RunQuerry");
 // This file is used to for async functions used for pulling .DB files
 // And or using a create table statement on a CSV
 /*
@@ -59,6 +60,9 @@ async function pullDB() {
     // Takes the db path from the first index
     // Since user can only select one I think
     // TODO: Might have to limit the Selection somehow
+    // Also as well as print out, Which simple way is to call
+    // Run querry which will print out the table using a simple
+    // SELECT * FROM DB
     const dbPath = uri[0].fsPath;
     // return a new DB object and or error depending on
     // if failed to open .DB file
@@ -70,6 +74,7 @@ async function pullDB() {
             }
             else {
                 vscode.window.showInformationMessage('Database opened: ' + path.basename(dbPath));
+                (0, RunQuerry_1.printDBTableNames)(db);
                 resolve(db);
             }
         });

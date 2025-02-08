@@ -1,6 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateTableHTML = generateTableHTML;
+/*
+export function queryResWebView() {
+  panel.webview.html =
+  `<html>
+      <head>
+          <style>
+              table { width: 100%; border-collapse: collapse; }
+              th, td { border: 1px solid black; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+          </style>
+      </head>
+          <body>
+              <h2>Query Results</h2>
+                  ${generateTableHTML(rows)}
+          </body>
+      </html>`;
+}
+*/
 function generateTableHTML(rows) {
     if (rows.length === 0)
         return '<p>No results found.</p>';

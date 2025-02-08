@@ -4,9 +4,10 @@ import * as vscode from 'vscode';
 import * as sqlite3 from 'sqlite3';
 import { createDiagram } from './commands/createDiagram';
 import { createRelationalAlgebra } from './commands/createRelationalAlgebra';
-import { pullDB } from './sqlite/DBManger';
-import { runQuery } from './sqlite/RunQuerry';
+import { pullDB } from './sqlite/DBManager';
+import { printDBTableNames, runQuery } from './sqlite/RunQuery';
 
+// So this is the DB that stores multiple tables insides (collections of tables)
 let db: sqlite3.Database | null = null; // constant for DB
 
 // This method is called when your extension is activated
@@ -23,21 +24,24 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Updates/Pull DB from File
 	context.subscriptions.push(
-			vscode.commands.registerCommand('sqlExtension.openDb', async () => {
+			vscode.commands.registerCommand('seeql.openDb', async () => {
 				db = await pullDB();
-				if (db) {
+				// Seems like it's not posting the message
+				if (db != null) {
 					vscode.window.showInformationMessage("Open sesame");
 				}
 			})
 		);
-
+	// All the error handling is done inside the call to the wrapper
+	// Gonna replace with another call on push button or something
 	context.subscriptions.push(
-		vscode.commands.registerCommand('sqlExtension.runQuery', async () => {
+		vscode.commands.registerCommand('seeql.runQuery', async () => {
 			if (!db) {
 				vscode.window.showInformationMessage("Brother where my promised DB dawg");
 				return;
 			}
 			runQuery(db);
+			// printDBTableNames(db);
 		})
 	);
 
