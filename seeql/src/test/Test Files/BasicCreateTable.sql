@@ -4,11 +4,11 @@ CREATE TABLE USERS (
 );
 
 CREATE TABLE YUGAMI (
-    id INT PRIMARY KEY,
+    peak INT PRIMARY KEY,
     USERNAME varchar(50)
 );
 
 CREATE TABLE MANGA   (
-    id INT PRIMARY KEY,
+    awesomeSauce INT PRIMARY KEY,
     USERNAME varchar(50)
 );
