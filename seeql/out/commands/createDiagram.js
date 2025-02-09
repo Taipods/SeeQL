@@ -88,27 +88,17 @@ function showTableNames(fileContents) {
     `;
 }
 function generateERDiagramHTML(erDiagram, css) {
-    const tableHtml = erDiagram.tables.map(table => `
-        <div class="table">
-            <h2>${table.name.toUpperCase()}</h2>
-            <table>
-                <thead>
-                    <tr><th>Column Name</th><th>Type</th><th>Constraints</th></tr>
-                </thead>
-                <tbody>
-                    ${table.columns.map(col => `
-                        <tr>
-                            <td>${col.name}</td>
-                            <td>${col.type}</td>
-                            <td>${col.constraints?.join(', ') || ''}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-            <p><strong>Primary Key:</strong> ${table.primaryKey.join(', ') || 'None'}</p>
-            <p><strong>Foreign Keys:</strong> ${table.foreignKeys.length ? table.foreignKeys.map(fk => `(${fk.columns.join(', ')}) → ${fk.referencesTable}(${fk.referencesColumns.join(', ')})`).join('<br>') : 'None'}</p>
-        </div>
-    `).join('');
+    const diagram = `
+        erDiagram
+        ${erDiagram.tables.map(table => `
+            ${table.name} {
+                ${table.columns.map(col => `${col.name} ${col.type}`).join('\n')}
+            }
+            ${table.foreignKeys.map(fk => `
+                ${table.name} ||--o| ${fk.referencesTable} : "FK"
+            `).join('\n')}
+        `).join('\n')}
+    `;
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -116,13 +106,27 @@ function generateERDiagramHTML(erDiagram, css) {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ER Diagram</title>
-            <link rel="stylesheet" href="${css}">
-            
+            <style>
+                /* Custom CSS to style Mermaid diagrams */
+                .mermaid .node rect {
+                    fill: #f9f9f9;
+                    stroke: #333;
+                }
+                .mermaid .edgeLabel {
+                    font-size: 12px;
+                    fill: #333;
+                }
+            </style>
+            <script type="module">
+                import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+                mermaid.initialize({ startOnLoad: true });
+            </script>
         </head>
-        
         <body>
-            <h1>ER Diagram</h1>
-            ${tableHtml}
+            <h1>SeeQl: ER Diagram</h1>
+            <div class="mermaid">
+                ${diagram}
+            </div>
         </body>
         </html>
     `;
