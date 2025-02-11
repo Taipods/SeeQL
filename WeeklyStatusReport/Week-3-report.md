@@ -61,6 +61,12 @@ Goals for Next week
 - Finalize UI desgin
 
 ## Elio
+Progress
+- Fixed bugs in the parser
+- Finalized the full sqlParser for ER Diagram
+Goals for Next week
+- Start setting up a parser for the RA command
+- Make unit tests for the parsers
 
 ## Annikalm
 
