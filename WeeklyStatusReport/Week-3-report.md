@@ -43,6 +43,12 @@ Individual Progress
 ## James
 
 ## Tai
+Progress
+- Setting up Github actions with YML file
+- Add simple vizsualizer for collective DataBase
+- Rename/fix the incorrect spelling 
+Goals for Next week
+- Finalize UI desgin
 
 ## Elio
 
@@ -60,3 +66,8 @@ Requests and proposals
 > Rename the group
 
 > Ideas, suggestions, enquiries for complementary information or requests for the allocation of additional resources.
+
+Question For TA:
+----------------------
+- Are we supposed to use the Archtechture presented in class only or can we branch out and use other type of archtecture?
+- For interface docs, do we need to draw a collective diagram of the whole system that shows I/O of each componets?
