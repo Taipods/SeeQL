@@ -80,7 +80,7 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
                 ${table.columns.map(col => `${col.name} ${col.type}`).join('\n')}
             }
             ${table.foreignKeys.map(fk => `
-                ${table.name} ||--o| ${fk.referencesTable} : "FK"
+                ${table.name} ||--o| ${fk.referencesTable} : "FK References: ${fk.referencesTable}"
             `).join('\n')}
         `).join('\n')}
     `;
@@ -92,17 +92,7 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ER Diagram</title>
-            <style>
-                /* Custom CSS to style Mermaid diagrams */
-                .mermaid .node rect {
-                    fill: #f9f9f9;
-                    stroke: #333;
-                }
-                .mermaid .edgeLabel {
-                    font-size: 12px;
-                    fill: #333;
-                }
-            </style>
+            <link rel="stylesheet" href="${css}">
             <script type="module">
                 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
                 mermaid.initialize({ startOnLoad: true });
