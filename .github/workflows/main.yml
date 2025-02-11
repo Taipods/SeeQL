@@ -23,7 +23,11 @@ jobs:
         node-version: 18.x
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd seeql
+        npm install
 
-    - name: Run tests #Runs all Mocha testes (given it's the script)
-      run: npm test
+    - name: Run tests
+      run: |
+        cd seeql
+        npm test
