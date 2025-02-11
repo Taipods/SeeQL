@@ -29,6 +29,9 @@ export async function runQuery(db: sqlite3.Database) {
     if (err) {
         vscode.window.showErrorMessage('Query error: ' + err.message);
     } else {
+        const rowCount = rows.length; //rows
+        const columnCount = rows.length > 0 ? Object.keys(rows[0]).length : 0; //cols
+
         const panel = vscode.window.createWebviewPanel(
         'sqliteResults',
         'SQLite Query Results',
@@ -50,6 +53,10 @@ export async function runQuery(db: sqlite3.Database) {
                 <body>
                     <h2>Query Results</h2>
                         ${generateTableHTML(rows)}
+                        <div class="stats">
+                            Rows: ${rowCount}, Columns: ${columnCount}
+                        </div>
+
                 </body>
             </html>`;
         }
