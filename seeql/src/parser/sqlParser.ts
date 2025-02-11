@@ -61,6 +61,8 @@ export function parseSQLForERDiagram(sqlText: string): ERDiagram | { error: stri
         primaryKey: [],
         foreignKeys: []
       };
+
+      let primaryKeyFound = false;
   
       // Split the content inside the parentheses into individual definitions.
       // This helper splits on commas that are NOT within nested parentheses.
@@ -73,6 +75,10 @@ export function parseSQLForERDiagram(sqlText: string): ERDiagram | { error: stri
   
         // Check for a table-level PRIMARY KEY constraint.
         if (/^PRIMARY\s+KEY/i.test(line)) {
+          if (primaryKeyFound) {
+            return {error: `Multiple primary key definitions found in table ${tableName}.`};
+          }
+          primaryKeyFound = true;
           // Expected format: PRIMARY KEY (col1, col2, ...)
           const pkMatch: RegExpMatchArray | null = line.match(/PRIMARY\s+KEY\s*\(([^)]+)\)/i);
           if (pkMatch) {
@@ -112,24 +118,51 @@ export function parseSQLForERDiagram(sqlText: string): ERDiagram | { error: stri
             const colName: string = colMatch[1];
             const colType: string = colMatch[2];
             let constraintsPart: string = colMatch[3].trim();
-            const constraints: string[] = constraintsPart ? constraintsPart.split(/\s+/) : [];
-            
-            // If the inline constraints mention PRIMARY KEY, add this column to the primary key.
-            if (constraints.map((c: string) => c.toUpperCase()).includes("PRIMARY")) {
-              tableDef.primaryKey.push(colName);
+
+            // Process inline PRIMARY KEY constraint if present.
+            if (/\bPRIMARY\s+KEY\b/i.test(constraintsPart)) {
+                if (primaryKeyFound) {
+                    return {error: `Multiple primary key definitions found in table ${tableName}.`};
+                }
+                primaryKeyFound = true;
+                tableDef.primaryKey.push(colName);
+                // Remove the PRIMARY KEY clause from constraintsPart
+                constraintsPart = constraintsPart.replace(/\bPRIMARY\s+KEY\b/ig, '').trim();
             }
 
-            // TODOS I still need to implement:
-            // I should check if there is already a primary key, in which case I should stop
-            // and return a sytanx error: "more than one PK" or smthg...
+            // Process inline FOREIGN KEY constraint if present.
+            if (/\bREFERENCES\b/i.test(constraintsPart)) {
+                // This regex will match both "REFERENCES refTable(refCol)" 
+                // and "REFERENCES refTable" (if no columns are provided).
+                const inlineFKRegex = /\bREFERENCES\s+(\w+)(?:\s*\(([^)]+)\))?/i;
+                const fkMatch = constraintsPart.match(inlineFKRegex);
+                if (fkMatch) {
+                const refTable = fkMatch[1].trim();
+                const refColumns = fkMatch[2]
+                    ? fkMatch[2].split(",").map((col: string) => col.trim())
+                    : [];
+                tableDef.foreignKeys.push({
+                    columns: [colName],
+                    referencesTable: refTable,
+                    referencesColumns: refColumns
+                });
+                }
+                // Remove the REFERENCES clause (and any potential "FOREIGN KEY" token) from rawConstraints.
+                constraintsPart = constraintsPart
+                .replace(/\bREFERENCES\s+\w+(?:\s*\([^)]+\))?/ig, '')
+                .replace(/\bFOREIGN\s+KEY\b/ig, '')
+                .trim();
+            }
 
-            // Should check if the constraint is a Foreign key reference...
-
+            // Any tokens left in rawConstraints are added as column constraints.
+            const tokens: string[] = constraintsPart
+            ? constraintsPart.split(/\s+/).filter(tok => tok.length > 0)
+            : [];
             
             const columnDef: ColumnDefinition = {
               name: colName,
               type: colType,
-              constraints: constraints.length > 0 ? constraints : undefined
+              constraints: tokens.length > 0 ? tokens : undefined
             };
             tableDef.columns.push(columnDef);
           }
