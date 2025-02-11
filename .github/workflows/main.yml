@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - SQLCompiler
-      - SQLErDiagramVisualizer
   pull_request: 
 
 jobs:
