@@ -19,20 +19,3 @@
 		}
 	]
 }
-
-/*
-{
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "npm: watch",
-      "type": "npm",
-      "script": "watch",
-      "isBackground": true,
-      "problemMatcher": [
-        "$tsc-watch"
-      ]
-    }
-  ]
-}
-	*/

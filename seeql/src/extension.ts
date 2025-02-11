@@ -5,7 +5,7 @@ import * as sqlite3 from 'sqlite3';
 import { createDiagram } from './commands/createDiagram';
 import { createRelationalAlgebra } from './commands/createRelationalAlgebra';
 import { pullDB } from './sqlite/DBManager';
-import { printDBTableNames, runQuery } from './sqlite/RunQuery';
+import {runQuery } from './sqlite/RunQuery';
 
 // So this is the DB that stores multiple tables insides (collections of tables)
 let db: sqlite3.Database | null = null; // constant for DB
