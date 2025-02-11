@@ -85,7 +85,7 @@ export async function printDBTableNames(db: sqlite3.Database) {
                 </style>
             </head>
                 <body>
-                    <h2>DB Names</h2>
+                    <h2>DB Tables Names</h2>
                         ${generateTableHTML(names)}
                 </body>
             </html>`;

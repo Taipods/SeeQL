@@ -110,7 +110,7 @@ async function printDBTableNames(db) {
                 </style>
             </head>
                 <body>
-                    <h2>Query Results</h2>
+                    <h2>DB Tables Names</h2>
                         ${(0, view_1.generateTableHTML)(names)}
                 </body>
             </html>`;
