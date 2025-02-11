@@ -65,6 +65,8 @@ async function runQuery(db) {
             vscode.window.showErrorMessage('Query error: ' + err.message);
         }
         else {
+            const rowCount = rows.length; //rows
+            const columnCount = rows.length > 0 ? Object.keys(rows[0]).length : 0; //cols
             const panel = vscode.window.createWebviewPanel('sqliteResults', 'SQLite Query Results', vscode.ViewColumn.One, { enableScripts: true } //enables to run scrips in the webview
             );
             // Renders out the html for webview using a function to print out all rows.
@@ -81,6 +83,10 @@ async function runQuery(db) {
                 <body>
                     <h2>Query Results</h2>
                         ${(0, view_1.generateTableHTML)(rows)}
+                        <div class="stats">
+                            Rows: ${rowCount}, Columns: ${columnCount}
+                        </div>
+
                 </body>
             </html>`;
         }
