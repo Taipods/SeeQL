@@ -30,17 +30,27 @@ Goals for This Week
 
 Reminder
 --------
->It is still snowing
+> It is still snowing
 
 Issues
 ------
-
+> For some reason, the sqlite wasn't working. It was working for Tai, but not for us. Might cause some issues when we merge. Might have to install.
+> 
+> Midterms is coming up, so we need to do better.
 
 > You shall report here the problems encountered during the reporting period and expected to be resolved in a regular way, with no need for the additional resources. Suggest an action plan.
 
 Individual Progress 
 -----------
 ## James
+Progress
+- Implemented front end of ER Diagram Visualizer 2/7
+- Installed Dolphin.js for graph 2/7
+- Edited the front end to look more appeasing. 2/8
+- Found some bugs when it comes to parser 2/9
+Goals for Next week
+- Finalize UI for ER Diagram
+- Start on the visualizer for relational algebra
 
 ## Tai
 Progress
@@ -59,6 +69,12 @@ Goals for Next week
 Plans for next week
 -------------------
 - Talk about impleamentation of Joins and holding Multiple database for possible joins.
+- Write more rest cases 2/13-2/15
+- Start and finish Relational Algebra Visualizer 2/11-15
+- Merge branches together 2/13
+- Determine what parser we're using 2/12
+- Prepare for Beta
+- Have what we're going to say for beta 2/17-2/18
 > You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
 
 Requests and proposals
