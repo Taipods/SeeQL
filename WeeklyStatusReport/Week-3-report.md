@@ -3,29 +3,29 @@ Weekly Report
 
 **Submitted by** James, Samriddhi, Annika, Tai, Elio
 
-**Period** mm/dd/aaaa → mm/dd/aaaa
+**Period** 02/06/2025 → 02/13/2025
 
 Goals for This Week
 -------
 > Elio finishes up the Parser
 > 
-> James needs to start the visualizatio
+> James needs to start the visualization
 > 
 > Change SQL file selector from file directory selector to file selector
 > 
 > Finish up ER Diagram if possible by Monday
 > 
-> Add buttons for SQL Queries
+> Add buttons for SQL Queries (Samriddhi)
 > 
-> Listing Stats needs to be done
+> Listing Stats needs to be done (annika)
 > 
-> Rename Classes
+> Rename Classes (Tai)
 > 
-> Redo UI
+> Redo UI (Tai) 
 > 
-> Display Queries
+> Display Queries (Tai)
 > 
-> Figure out joins in terms of queries
+> Figure out joins in terms of queries ~ 
 > 
 
 Reminder
@@ -38,22 +38,7 @@ Issues
 
 > You shall report here the problems encountered during the reporting period and expected to be resolved in a regular way, with no need for the additional resources. Suggest an action plan.
 
-Progress
-----------
-
-> You shall list here your own activities as well as activities of the unit that reports to you for the reporting period. Support your report with facts and numbers highlighting the achieved results.
-
-### Monday
-
-### Tuesday
-
-### Wednesday
-
-### Thursday
-
-### Friday
-
-Individual
+Individual Progress 
 -----------
 ## James
 
