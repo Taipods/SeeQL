@@ -15,13 +15,19 @@
     "commands": [
       {
         "command": "seeql.createDiagram",
-        "category": "SeeQL",
-        "title": "Create a Diagram of a Create SQL Statement"
+        "title": "SeeQL: Create a Diagram of a Create SQL Statement"
       },
       {
         "command": "seeql.createRelationalAlgebra",
-        "category": "SeeQL",
-        "title": "Create a Relational Algebra Diagram"
+        "title": "SeeQL: Create a Relational Algebra Diagram"
+      },
+      {
+        "command": "seeql.openDb",
+        "title": "SeeQL: Open Database"
+      },
+      {
+        "command": "seeql.runQuery",
+        "title": "SeeQL: Run SQL Query"
       }
     ]
   },
@@ -43,5 +49,9 @@
     "typescript": "^5.7.2",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1"
+  },
+  "dependencies": {
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   }
 }
