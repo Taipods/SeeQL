@@ -1,13 +1,12 @@
 Weekly Report
 =============
 
-**Submitted by** Name
+**Submitted by** James, Samriddhi, Annika, Tai, Elio
 
 **Period** mm/dd/aaaa → mm/dd/aaaa
 
 Goals for This Week
 -------
-
 > Work needed to be complete this week
 
 Reminder
@@ -21,42 +20,24 @@ Reminder
 
 Issues
 ------
-
 > You shall report here the problems encountered during the reporting period and expected to be resolved in a regular way, with no need for the additional resources. Suggest an action plan.
 
-Progress
+Individual Progress
 ----------
+### James
 
-> You shall list here your own activities as well as activities of the unit that reports to you for the reporting period. Support your report with facts and numbers highlighting the achieved results.
+### Tai
 
-### Monday
+### Elio
 
-### Tuesday
+### Annika
 
-### Wednesday
-
-### Thursday
-
-### Friday
-
-Individual
------------
-## James
-
-## Tai
-
-## Elio
-
-## Annikalm
-
-## Samriddhi
+### Samriddhi
 
 Plans for next week
 -------------------
-
 > You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
 
 Requests and proposals
 ----------------------
-
 > Ideas, suggestions, enquiries for complementary information or requests for the allocation of additional resources.
