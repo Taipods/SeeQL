@@ -71,7 +71,7 @@ export function parseSQLForERDiagram(sqlText: string): ERDiagram | { error: stri
       // Process each line (each line is either a column definition or a table-level constraint).
       for (let line of lines) {
         line = line.trim();
-        if (!line) continue;
+        if (!line) {continue};
   
         // Check for a table-level PRIMARY KEY constraint.
         if (/^PRIMARY\s+KEY/i.test(line)) {

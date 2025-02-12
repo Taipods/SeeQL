@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.commands.registerCommand('seeql.openDb', async () => {
 				db = await pullDB();
 				// Seems like it's not posting the message
-				if (db != null) {
+				if (db !== null) {
 					vscode.window.showInformationMessage("Open sesame");
 				}
 			})

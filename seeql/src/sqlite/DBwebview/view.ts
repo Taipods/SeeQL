@@ -20,7 +20,7 @@ export function queryResWebView() {
 
 export function generateTableHTML(rows: any[]): string {
 
-  if (rows.length === 0) return '<p>No results found.</p>';
+  if (rows.length === 0) {return '<p>No results found.</p>'};
 
   const headers = Object.keys(rows[0]);
   const headerRow = headers.map(header => `<th>${header}</th>`).join('');
