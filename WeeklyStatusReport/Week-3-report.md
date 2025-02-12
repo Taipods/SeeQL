@@ -48,6 +48,7 @@ Progress
 - Installed Dolphin.js for graph 2/7
 - Edited the front end to look more appeasing. 2/8
 - Found some bugs when it comes to parser 2/9
+  
 Goals for Next week
 - Finalize UI for ER Diagram
 - Start on the visualizer for relational algebra
@@ -56,7 +57,8 @@ Goals for Next week
 Progress
 - Setting up Github actions with YML file
 - Add simple vizsualizer for collective DataBase
-- Rename/fix the incorrect spelling 
+- Rename/fix the incorrect spelling
+
 Goals for Next week
 - Finalize UI desgin
 
@@ -64,30 +66,44 @@ Goals for Next week
 Progress
 - Fixed bugs in the parser
 - Finalized the full sqlParser for ER Diagram
+  
 Goals for Next week
 - Start setting up a parser for the RA command
 - Make unit tests for the parsers
 
-## Annikalm
+## Annika
+
+Progress:
+- Return row/column stats for query results feature is functional - 2/9
+- Using Mocha, wrote unit tests for stats feature - 2/11
+- Working on reimplementation for create database feature - 2/11
+  
+Goals for next week:
+- Reimplement faulty create database feature - 2/20
+- Write unit tests for create database - 2/20
+- Fix unit test bugs - 2/18
+- Don't include rows/cols for query error - 2/18
 
 ## Samriddhi
 
 Plans for next week
 -------------------
+> You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
 - Talk about impleamentation of Joins and holding Multiple database for possible joins.
-- Write more rest cases 2/13-2/15
+- Write more test cases 2/13-2/15
 - Start and finish Relational Algebra Visualizer 2/11-15
 - Merge branches together 2/13
 - Determine what parser we're using 2/12
 - Prepare for Beta
 - Have what we're going to say for beta 2/17-2/18
-> You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
+
 
 Requests and proposals
 ----------------------
-> Rename the group
-
 > Ideas, suggestions, enquiries for complementary information or requests for the allocation of additional resources.
+
+- Rename the group
+
 
 Question For TA:
 ----------------------
