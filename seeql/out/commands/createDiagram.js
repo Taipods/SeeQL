@@ -50,17 +50,21 @@ async function createDiagram(context) {
         // Do something with the selected files
         vscode.window.showInformationMessage(`Selected files: ${fileUris.map(uri => uri.fsPath).join(', ')}`);
         // You can now process the selected files (e.g., read their content, create diagrams, etc.)
-        // Panels for showing files
+        // Reads the content of the selected files
         const fileContents = await Promise.all(fileUris.map(async (uri) => {
             const fileContent = await vscode.workspace.fs.readFile(uri);
             return `File: ${uri.fsPath}\n\n${fileContent.toString()}`;
         }));
+        // Parse SQL files for ER Diagram key words for the diagram
         const erDiagram = (0, sqlParser_1.parseSQLForERDiagram)(fileContents.join('\n\n'));
         if ('error' in erDiagram) {
             vscode.window.showErrorMessage(erDiagram.error);
             return;
         }
+        // Panels for showing files
+        // File Panel will show the content of SQL files
         const filePanel = vscode.window.createWebviewPanel('fileContent', 'File Content', vscode.ViewColumn.One, { enableScripts: true });
+        // ErDiagram File will show the ER Diagram of the SQL files
         const visualizerPanel = vscode.window.createWebviewPanel('visualizer', 'ER Diagram', vscode.ViewColumn.Two, { enableScripts: true });
         const diagramStylePath = vscode.Uri.file(path.join(context.extensionPath, 'media', 'diagramStyle.css'));
         const diagramStyleSrc = filePanel.webview.asWebviewUri(diagramStylePath);
@@ -95,7 +99,7 @@ function generateERDiagramHTML(erDiagram, css) {
                 ${table.columns.map(col => `${col.name} ${col.type}`).join('\n')}
             }
             ${table.foreignKeys.map(fk => `
-                ${table.name} ||--o| ${fk.referencesTable} : "FK References: ${fk.referencesTable}"
+                ${table.name} ||--o| ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
             `).join('\n')}
         `).join('\n')}
     `;
