@@ -63,6 +63,20 @@ export async function runQuery(db: sqlite3.Database) {
     });
 }
 
+export async function runQueryTest(db: sqlite3.Database, query: string): Promise<{ rows: any[]; rowCount: number; columnCount: number }> {
+    return new Promise((resolve, reject) => {
+        db.all(query, [], (err: any, rows: any[]) => {
+            if (err) {
+                reject(err);
+            } else {
+                const rowCount = rows.length;
+                const columnCount = rows.length > 0 ? Object.keys(rows[0]).length : 0;
+                resolve({ rows, rowCount, columnCount });
+            }
+        });
+    });
+}
+
 export async function printDBTableNames(db: sqlite3.Database) {
     const printDB = `SELECT name
                      FROM sqlite_master
