@@ -27,6 +27,7 @@ function parseSQLForERDiagram(sqlText) {
             primaryKey: [],
             foreignKeys: []
         };
+        let primaryKeyFound = false;
         // Split the content inside the parentheses into individual definitions.
         // This helper splits on commas that are NOT within nested parentheses.
         const lines = splitSQLColumns(tableContent);
@@ -37,6 +38,10 @@ function parseSQLForERDiagram(sqlText) {
                 continue;
             // Check for a table-level PRIMARY KEY constraint.
             if (/^PRIMARY\s+KEY/i.test(line)) {
+                if (primaryKeyFound) {
+                    return { error: `Multiple primary key definitions found in table ${tableName}.` };
+                }
+                primaryKeyFound = true;
                 // Expected format: PRIMARY KEY (col1, col2, ...)
                 const pkMatch = line.match(/PRIMARY\s+KEY\s*\(([^)]+)\)/i);
                 if (pkMatch) {
@@ -74,19 +79,47 @@ function parseSQLForERDiagram(sqlText) {
                     const colName = colMatch[1];
                     const colType = colMatch[2];
                     let constraintsPart = colMatch[3].trim();
-                    const constraints = constraintsPart ? constraintsPart.split(/\s+/) : [];
-                    // If the inline constraints mention PRIMARY KEY, add this column to the primary key.
-                    if (constraints.map((c) => c.toUpperCase()).includes("PRIMARY")) {
+                    // Process inline PRIMARY KEY constraint if present.
+                    if (/\bPRIMARY\s+KEY\b/i.test(constraintsPart)) {
+                        if (primaryKeyFound) {
+                            return { error: `Multiple primary key definitions found in table ${tableName}.` };
+                        }
+                        primaryKeyFound = true;
                         tableDef.primaryKey.push(colName);
+                        // Remove the PRIMARY KEY clause from constraintsPart
+                        constraintsPart = constraintsPart.replace(/\bPRIMARY\s+KEY\b/ig, '').trim();
                     }
-                    // TODOS I still need to implement:
-                    // I should check if there is already a primary key, in which case I should stop
-                    // and return a sytanx error: "more than one PK" or smthg...
-                    // Should check if the constraint is a Foreign key reference...
+                    // Process inline FOREIGN KEY constraint if present.
+                    if (/\bREFERENCES\b/i.test(constraintsPart)) {
+                        // This regex will match both "REFERENCES refTable(refCol)" 
+                        // and "REFERENCES refTable" (if no columns are provided).
+                        const inlineFKRegex = /\bREFERENCES\s+(\w+)(?:\s*\(([^)]+)\))?/i;
+                        const fkMatch = constraintsPart.match(inlineFKRegex);
+                        if (fkMatch) {
+                            const refTable = fkMatch[1].trim();
+                            const refColumns = fkMatch[2]
+                                ? fkMatch[2].split(",").map((col) => col.trim())
+                                : [];
+                            tableDef.foreignKeys.push({
+                                columns: [colName],
+                                referencesTable: refTable,
+                                referencesColumns: refColumns
+                            });
+                        }
+                        // Remove the REFERENCES clause (and any potential "FOREIGN KEY" token) from rawConstraints.
+                        constraintsPart = constraintsPart
+                            .replace(/\bREFERENCES\s+\w+(?:\s*\([^)]+\))?/ig, '')
+                            .replace(/\bFOREIGN\s+KEY\b/ig, '')
+                            .trim();
+                    }
+                    // Any tokens left in rawConstraints are added as column constraints.
+                    const tokens = constraintsPart
+                        ? constraintsPart.split(/\s+/).filter(tok => tok.length > 0)
+                        : [];
                     const columnDef = {
                         name: colName,
                         type: colType,
-                        constraints: constraints.length > 0 ? constraints : undefined
+                        constraints: tokens.length > 0 ? tokens : undefined
                     };
                     tableDef.columns.push(columnDef);
                 }

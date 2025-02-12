@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { parseSQLForERDiagram, ERDiagram } from '../parser/sqlParser';
 import * as path from 'path';
+import { parseSQLForERDiagram, ERDiagram } from '../parser/sqlParser';
 
 export async function createDiagram(context: vscode.ExtensionContext) {
     // Pulls file directory
@@ -15,20 +15,7 @@ export async function createDiagram(context: vscode.ExtensionContext) {
         // Do something with the selected files
         vscode.window.showInformationMessage(`Selected files: ${fileUris.map(uri => uri.fsPath).join(', ')}`);
         // You can now process the selected files (e.g., read their content, create diagrams, etc.)
-        const filePanel = vscode.window.createWebviewPanel(
-            'fileContent',
-            'File Content',
-            vscode.ViewColumn.One,
-            {enableScripts: true}
-        );
-
-        const visualizerPanel = vscode.window.createWebviewPanel(
-            'visualizer',
-            'ER Diagram',
-            vscode.ViewColumn.Two,
-            {enableScripts: true}
-        );
-
+        // Reads the content of the selected files
         const fileContents = await Promise.all(
             fileUris.map(async (uri) => {
                 const fileContent = await vscode.workspace.fs.readFile(uri);
@@ -36,23 +23,40 @@ export async function createDiagram(context: vscode.ExtensionContext) {
             })
         );
 
+        // Parse SQL files for ER Diagram key words for the diagram
         const erDiagram = parseSQLForERDiagram(fileContents.join('\n\n'));
         if('error' in erDiagram) {
             vscode.window.showErrorMessage(erDiagram.error);
             return;
         }
 
-        const diagramStylePath = vscode.Uri.file(
-            path.join(context.extensionPath, 'media', 'diagramStyle.css')
-        )
-        const diagramStyleSrc = visualizerPanel.webview.asWebviewUri(diagramStylePath);
+        // Panels for showing files
+        // File Panel will show the content of SQL files
+        const filePanel = vscode.window.createWebviewPanel(
+            'fileContent',
+            'File Content',
+            vscode.ViewColumn.One,
+            {enableScripts: true}
+        );
+
+        // ErDiagram File will show the ER Diagram of the SQL files
+        const visualizerPanel = vscode.window.createWebviewPanel(
+            'visualizer',
+            'ER Diagram',
+            vscode.ViewColumn.Two,
+            {enableScripts: true}
+        );
+
+        const diagramStylePath = vscode.Uri.file(path.join(context.extensionPath, 'media', 'diagramStyle.css'));
+        const diagramStyleSrc = filePanel.webview.asWebviewUri(diagramStylePath);
 
         filePanel.webview.html = showTableNames(fileContents);
-        visualizerPanel.webview.html = generateERDiagramHTML(erDiagram, visualizerPanel.webview, diagramStyleSrc);
+        visualizerPanel.webview.html = generateERDiagramHTML(erDiagram, diagramStyleSrc.toString());
     } else {
         vscode.window.showInformationMessage('No files selected.');
     }
 }
+
 
 function showTableNames(fileContents: string[]): string {
     return `
@@ -71,31 +75,18 @@ function showTableNames(fileContents: string[]): string {
     `;
 }
 
-function generateERDiagramHTML(erDiagram: ERDiagram, webview: vscode.Webview, extensionUri: vscode.Uri): string {
-    const css = webview.asWebviewUri(extensionUri);
-    const tableHtml = erDiagram.tables.map(table => `
-        <div class="table">
-            <h2>${table.name}</h2>
-            <table>
-                <thead>
-                    <tr><th>Column Name</th><th>Type</th><th>Constraints</th></tr>
-                </thead>
-                <tbody>
-                    ${table.columns.map(col => `
-                        <tr>
-                            <td>${col.name}</td>
-                            <td>${col.type}</td>
-                            <td>${col.constraints?.join(', ') || ''}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-            <p><strong>Primary Key:</strong> ${table.primaryKey.join(', ') || 'None'}</p>
-            <p><strong>Foreign Keys:</strong> ${table.foreignKeys.map(fk =>
-                `(${fk.columns.join(', ')}) → ${fk.referencesTable}(${fk.referencesColumns.join(', ')})`
-            ).join('<br>') || 'None'}</p>
-        </div>
-    `).join('');
+function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
+    const diagram = `
+        erDiagram
+        ${erDiagram.tables.map(table => `
+            ${table.name} {
+                ${table.columns.map(col => `${col.name} ${col.type}`).join('\n')}
+            }
+            ${table.foreignKeys.map(fk => `
+                ${table.name} ||--o| ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
+            `).join('\n')}
+        `).join('\n')}
+    `;
 
     return `
         <!DOCTYPE html>
@@ -104,12 +95,16 @@ function generateERDiagramHTML(erDiagram: ERDiagram, webview: vscode.Webview, ex
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ER Diagram</title>
-            <link rel="stylesheet" type="text/css" href="${css}">
+            <link rel="stylesheet" href="${css}">
+            <script type="module">
+                import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+                mermaid.initialize({ startOnLoad: true });
+            </script>
         </head>
         <body>
-            <h1>ER Diagram</h1>
-            <div class="container">
-                ${tableHtml}
+            <h1>SeeQl: ER Diagram</h1>
+            <div class="mermaid">
+                ${diagram}
             </div>
         </body>
         </html>

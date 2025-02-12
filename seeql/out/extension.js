@@ -54,6 +54,7 @@ function activate(context) {
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
     context.subscriptions.push(vscode.commands.registerCommand('seeql.createDiagram', () => (0, createDiagram_1.createDiagram)(context)));
+    context.subscriptions.push(vscode.commands.registerCommand('seeql.createRelationalAlgebra', createRelationalAlgebra_1.createRelationalAlgebra));
     // Updates/Pull DB from File
     context.subscriptions.push(vscode.commands.registerCommand('seeql.openDb', async () => {
         db = await (0, DBManager_1.pullDB)();
@@ -72,7 +73,6 @@ function activate(context) {
         (0, RunQuery_1.runQuery)(db);
         // printDBTableNames(db);
     }));
-    context.subscriptions.push(vscode.commands.registerCommand('seeql.createRelationalAlgebra', createRelationalAlgebra_1.createRelationalAlgebra));
 }
 // This method is called when your extension is deactivated
 function deactivate() {
