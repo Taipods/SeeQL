@@ -85,6 +85,16 @@ Goals for next week:
 - Don't include rows/cols for query error - 2/18
 
 ## Samriddhi
+Progress:
+- Implemented functionality to parse through an SQL file for queries
+- Idetnfied eligible queries for button creation
+- Started initial UI setup for interactive query buttons
+
+Goals for next week:
+- Finalize UI and styling for query buttons
+- Ensure proper execution of queries when buttons are clicked
+- Handle edge cases for invalid or complex queries
+- Conduct unit testing for SQL parsing and button interaactions
 
 Plans for next week
 -------------------
