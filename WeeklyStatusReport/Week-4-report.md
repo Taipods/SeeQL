@@ -7,7 +7,13 @@ Weekly Report
 
 Goals for This Week
 -------
-> Work needed to be complete this week
+Talk about impleamentation of Joins and holding Multiple database for possible joins.
+Write more test cases 2/13-2/15
+Start and finish Relational Algebra Visualizer 2/11-15
+Merge branches together 2/13
+Determine what parser we're using 2/12
+Prepare for Beta
+Have what we're going to say for beta 2/17-2/18
 
 Reminder
 --------
