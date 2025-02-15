@@ -65,6 +65,7 @@ function showTableNames(fileContents: string[]): string {
 }
 
 function showRelationalAlgebra(ast: any): string {
+
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -72,11 +73,36 @@ function showRelationalAlgebra(ast: any): string {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Relational Algebra</title>
+            <script type="module">
+                import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+                mermaid.initialize({ startOnLoad: true });
+            </script>
         </head>
         <body>
             <h1>Relational Algebra</h1>
-            <pre>${JSON.stringify(ast, null, 2)}</pre>
+            <pre>${convertToRelationalAlgebra(ast)}</pre>
         </body>
         </html>
     `;
+}
+
+function convertToRelationalAlgebra(ast: any): string {
+    if(ast === null || ast === undefined) {
+        return '';
+    }
+    let mermaidCode = '';
+    if (ast.type === 'select') {
+        mermaidCode += 'select ';
+        if (ast.columns) {
+            mermaidCode += ast.columns.map((col: any) => col.expr.column).join(', ');
+        }
+        if (ast.from) {
+            mermaidCode += ' from ' + ast.from[0].table;
+        }
+        if (ast.where) {
+            mermaidCode += ' where ' + ast.where.condition.left.column + ' ' + ast.where.condition.operator + ' ' + ast.where.condition.right.value;
+        }
+    }
+
+    return mermaidCode;
 }
