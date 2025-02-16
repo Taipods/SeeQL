@@ -94,29 +94,36 @@ function showRelationalAlgebra(ast) {
             </script>
         </head>
         <body>
-            <h1>Relational Algebra</h1>
-            <pre>${convertToRelationalAlgebra(ast)}</pre>
+            <h1>SeeQL: Relational Algebra</h1>
+            <div class="mermaid">
+                ${convertToRelationalAlgebra(ast)}
+            </div>
         </body>
         </html>
     `;
 }
 function convertToRelationalAlgebra(ast) {
-    if (ast === null || ast === undefined) {
-        return '';
-    }
-    let mermaidCode = '';
-    if (ast.type === 'select') {
-        mermaidCode += 'select ';
-        if (ast.columns) {
-            mermaidCode += ast.columns.map((col) => col.expr.column).join(', ');
+    const relationalAlgebra = convertAstToTables(ast);
+    const diagram = `
+        erDiagram
+            "π: *" ||--o{ "σ: City = New York" : places
+            "σ: City = New York" ||--|{ "σ: City = Seattle" : contains
+    `;
+    return diagram;
+}
+function convertAstToTables(ast) {
+    if (!ast)
+        return "";
+    let word = "";
+    ast.forEach((query) => {
+        if (query.columns && Array.isArray(query.columns)) {
+            query.columns.forEach((col) => {
+                if (col.expr && col.expr.column) {
+                    word += col.expr.column + " ";
+                }
+            });
         }
-        if (ast.from) {
-            mermaidCode += ' from ' + ast.from[0].table;
-        }
-        if (ast.where) {
-            mermaidCode += ' where ' + ast.where.condition.left.column + ' ' + ast.where.condition.operator + ' ' + ast.where.condition.right.value;
-        }
-    }
-    return mermaidCode;
+    });
+    return word.toLocaleUpperCase();
 }
 //# sourceMappingURL=createRelationalAlgebra.js.map
