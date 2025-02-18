@@ -2,6 +2,11 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { parseSQLForERDiagram, ERDiagram } from '../parser/sqlParser';
 
+/**
+ * Creates the ER Diagram from the selected SQL files
+ * @param context: This is used for the css to work
+ * @returns: 
+ */
 export async function createDiagram(context: vscode.ExtensionContext) {
     // Pulls file directory
     const fileUris = await vscode.window.showOpenDialog({
@@ -14,7 +19,6 @@ export async function createDiagram(context: vscode.ExtensionContext) {
     if (fileUris && fileUris.length > 0) {
         // Do something with the selected files
         vscode.window.showInformationMessage(`Selected files: ${fileUris.map(uri => uri.fsPath).join(', ')}`);
-        // You can now process the selected files (e.g., read their content, create diagrams, etc.)
         // Reads the content of the selected files
         const fileContents = await Promise.all(
             fileUris.map(async (uri) => {
@@ -57,7 +61,12 @@ export async function createDiagram(context: vscode.ExtensionContext) {
     }
 }
 
-
+/**
+ * Simple function that returns a simple webview of the file content
+ * All that's done is that it's joined together in it's original format
+ * @param fileContents: a converted string array of the file contents
+ * @returns a string that is used to process the HTML
+ */
 function showTableNames(fileContents: string[]): string {
     return `
         <!DOCTYPE html>
@@ -75,6 +84,13 @@ function showTableNames(fileContents: string[]): string {
     `;
 }
 
+/**
+ * Generates the HTML content for the ER Diagram visualization.
+ * Through using mermaid.js
+ * @param erDiagram: the parsed ER Diagram object
+ * @param css: the URI of the CSS file to use for styling the diagram
+ * @returns 
+ */
 function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
     const diagram = `
         erDiagram
@@ -87,7 +103,6 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
             `).join('\n')}
         `).join('\n')}
     `;
-
     return `
         <!DOCTYPE html>
         <html lang="en">

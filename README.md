@@ -13,23 +13,51 @@ SQL, at times, feels very difficult to work with. We want our extension to make 
 		* Inside seeql - > src contains our main files for our extension including our tests.
 		* Weekly Status report self explanatory
 ## Features
-(WIP)
-## Requirements
-(WIP)
-## Extension Settings
-(WIP)
-## Release Notes
+-Upload data (CSV) that creates a new Database file through a Create Table Statement
 
-Users appreciate release notes as you update your extension.
+-Output an SQL Query after pressing a button, and implementing a db
+
+-Displays a table of results from a query using HTML
+
+-Visualize ER Diagrams via Create Tables
+
+-Visualize Relational Algebra via SQL Query Statements
+
+## Requirements
+N/A
+## Extension Settings
+N/A
 
 ## Building and Testing System
+
+## Functional Use Cases
+-- Create a E.R Diagram based on CREATE TABLE SQL statements: User can select a basic command, SeeQL: Create a Diagram of a Create SQL Statement and insert an associated Create Table SQL file, then their data is parsed in the backend and displayed via Webview through mermaid.js. The tables are displayed and connected through lines if references.
+
+-- Create relational algebra based on user created query: User can select a basic command through the command line, SeeQL: Create a Relational Algebra Diagram and insert an associated SQL query, that statement is the parsed in the backend through an SQL parser converted to an ast. The ast is then converted into data that mermaid.js can use to then display that through a diagram and displayed via Webview.
+
+-- Writing a SQL query will show statistics of row and column count in the output: User can select a basic command through the command line, SeeQL: Run SQL Query, but is required to run command SeeQL: Open Database, once the query is run the statistics will be shown.
+
+-- Run SQL Query Statement: User can select a basic command through the command line, SeeQL: Open Database and SeeQL: Run SQL Query where the user gives a db, and gives an SQL statement, which will then return the query results for the user.
 
 ## How to use system
 Steps:
 1. Open Command Line
+
+![Alt text](seeql/media/Images/Step1.png)
+
 2. Find any SeeQL Command Lines
+
+![Alt text](seeql/media/Images/Step2.png)
+
 3. Select any single one command line
 4. Choose a related SeeQl file to that command line
+
+![Alt text](seeql/media/Images/Step3.png)
+
 5. Once selected, visualization of that SQL file should be up whether Er Diagram, Relational Algebra, etc.
+
+![Alt text](seeql/media/Images/Step4.png)
+
+## Release Notes
 ### 1.0.0
 (WIP)
