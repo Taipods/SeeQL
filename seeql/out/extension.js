@@ -59,7 +59,7 @@ function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('seeql.openDb', async () => {
         db = await (0, DBManager_1.pullDB)();
         // Seems like it's not posting the message
-        if (db != null) {
+        if (db !== null) {
             vscode.window.showInformationMessage("Open sesame");
         }
     }));

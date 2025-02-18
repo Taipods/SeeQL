@@ -34,6 +34,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runQuery = runQuery;
+exports.runQueryTest = runQueryTest;
 exports.printDBTableNames = printDBTableNames;
 const vscode = __importStar(require("vscode"));
 const view_1 = require("./DBwebview/view");
@@ -90,6 +91,20 @@ async function runQuery(db) {
                 </body>
             </html>`;
         }
+    });
+}
+async function runQueryTest(db, query) {
+    return new Promise((resolve, reject) => {
+        db.all(query, [], (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                const rowCount = rows.length;
+                const columnCount = rows.length > 0 ? Object.keys(rows[0]).length : 0;
+                resolve({ rows, rowCount, columnCount });
+            }
+        });
     });
 }
 async function printDBTableNames(db) {
