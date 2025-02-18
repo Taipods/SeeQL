@@ -13,11 +13,15 @@ SQL, at times, feels very difficult to work with. We want our extension to make 
 		* Inside seeql - > src contains our main files for our extension including our tests.
 		* Weekly Status report self explanatory
 ## Features
-(WIP)
+-Upload data (CSV) that creates a new Database file through a Create Table Statement
+-Output an SQL Query after pressing a button, and implementing a db
+-Displays a table of results from a query using HTML
+-Visualize ER Diagrams via Create Tables
+-Visualize Relational Algebra via SQL Query Statements
 ## Requirements
-(WIP)
+N/A
 ## Extension Settings
-(WIP)
+N/A
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
