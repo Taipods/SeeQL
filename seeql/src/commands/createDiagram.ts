@@ -14,7 +14,6 @@ export async function createDiagram(context: vscode.ExtensionContext) {
     if (fileUris && fileUris.length > 0) {
         // Do something with the selected files
         vscode.window.showInformationMessage(`Selected files: ${fileUris.map(uri => uri.fsPath).join(', ')}`);
-        // You can now process the selected files (e.g., read their content, create diagrams, etc.)
         // Reads the content of the selected files
         const fileContents = await Promise.all(
             fileUris.map(async (uri) => {
@@ -57,7 +56,10 @@ export async function createDiagram(context: vscode.ExtensionContext) {
     }
 }
 
-
+// Simple function that returns a simple webview of the file content
+// All that's done is that it's joined together in it's original format
+// Parameters:
+// fileContents: a converted string array of the file contents
 function showTableNames(fileContents: string[]): string {
     return `
         <!DOCTYPE html>
@@ -75,6 +77,11 @@ function showTableNames(fileContents: string[]): string {
     `;
 }
 
+// Generates the HTML content for the ER Diagram visualization.
+// Through using mermaid.js
+// Parameters:
+// - erDiagram: the parsed ER Diagram object
+// - css: the URI of the CSS file to use for styling the diagram
 function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
     const diagram = `
         erDiagram

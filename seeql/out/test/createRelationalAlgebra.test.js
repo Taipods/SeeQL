@@ -34,16 +34,27 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert = __importStar(require("assert"));
+const createRelationalAlgebra_1 = require("../commands/createRelationalAlgebra");
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
 const vscode = __importStar(require("vscode"));
 // import * as myExtension from '../../extension';
 // James was here
-suite('Yay', () => {
+suite('CreateRelationalAlgebra: Parser Test', () => {
     vscode.window.showInformationMessage('Start all tests.');
-    test('Sample test', () => {
-        assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-        assert.strictEqual(-1, [1, 2, 3].indexOf(0));
+    test('Edge Case', () => {
+        const ast = "";
+        const result = (0, createRelationalAlgebra_1.convertToRelationalAlgebra)(ast);
+        assert.strictEqual(result, '%% No valid AST found');
+    });
+    test('Single table SELECT query', () => {
+        const ast = [{
+                type: 'select',
+                from: [{ table: 'users' }],
+                columns: [{ expr: { type: 'column_ref', column: 'id' } }]
+            }];
+        const result = (0, createRelationalAlgebra_1.convertToRelationalAlgebra)(ast);
+        assert.strictEqual(result, 'flowchart BT\nnode0[users]\nnode1[π: id]\nnode0 --> node1');
     });
 });
-//# sourceMappingURL=testCase.test.js.map
+//# sourceMappingURL=createRelationalAlgebra.test.js.map

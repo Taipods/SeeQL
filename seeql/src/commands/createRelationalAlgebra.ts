@@ -57,6 +57,11 @@ export async function createRelationalAlgebra() {
     }
 }
 
+/**
+ * Shows the content of the selected files in a WebView.
+ * @param fileContents 
+ * @returns a string that can be used as the HTML
+ */
 function showTableNames(fileContents: string[]): string {
     return `
         <!DOCTYPE html>
@@ -75,7 +80,6 @@ function showTableNames(fileContents: string[]): string {
 }
 
 function showRelationalAlgebra(ast: any): string {
-
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -107,7 +111,7 @@ function showRelationalAlgebra(ast: any): string {
  * @param ast Contains the AST's of the queries
  * @returns A String in mermaid interpretable format that represents the RA plans
  */
-function convertToRelationalAlgebra(ast: any): string {
+export function convertToRelationalAlgebra(ast: any): string {
     if (!ast) {
         return '%% No valid AST found';
     }

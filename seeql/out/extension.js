@@ -42,6 +42,7 @@ const createDiagram_1 = require("./commands/createDiagram");
 const createRelationalAlgebra_1 = require("./commands/createRelationalAlgebra");
 const DBManager_1 = require("./sqlite/DBManager");
 const RunQuery_1 = require("./sqlite/RunQuery");
+const SQLCodeLensProvider_1 = require("./sqlite/SQLCodeLensProvider");
 // So this is the DB that stores multiple tables insides (collections of tables)
 let db = null; // constant for DB
 // This method is called when your extension is activated
@@ -65,14 +66,15 @@ function activate(context) {
     }));
     // All the error handling is done inside the call to the wrapper
     // Gonna replace with another call on push button or something
-    context.subscriptions.push(vscode.commands.registerCommand('seeql.runQuery', async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('seeql.runQuery', async (document, line) => {
         if (!db) {
             vscode.window.showInformationMessage("Brother where my promised DB dawg");
             return;
         }
         (0, RunQuery_1.runQuery)(db);
-        // printDBTableNames(db);
     }));
+    // Register SQL CodeLensProvider
+    context.subscriptions.push(vscode.languages.registerCodeLensProvider({ language: "sql" }, new SQLCodeLensProvider_1.SQLCodeLensProvider()));
 }
 // This method is called when your extension is deactivated
 function deactivate() {
