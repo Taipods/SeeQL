@@ -1,5 +1,5 @@
-import * as assert from 'assert';
 import * as vscode from 'vscode';
+import * as assert from 'assert';
 import * as sqlite3 from 'sqlite3';
 import { runQueryTest } from '../sqlite/RunQuery';
 
