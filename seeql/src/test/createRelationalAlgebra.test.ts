@@ -26,7 +26,38 @@ suite('CreateRelationalAlgebra: Parser Test', () => {
         assert.strictEqual(result, 'flowchart BT\nnode0[users]\nnode1[π: id]\nnode0 --> node1');
     });
 
-    test('Where Statements', () => {
+    test('WHERE clause', () => {
+        const ast = [{
+            type: 'select',
+            from: [{ table: 'users' }],
+            where: { type: 'binary_expr', left: { type: 'column_ref', column: 'age' }, operator: '>', right: { type: 'number', value: 30 } },
+            columns: [{ expr: { type: 'column_ref', column: 'id' } }]
+        }];
+        const result = convertToRelationalAlgebra(ast);
+        const expected = 'flowchart BT\n' +
+                        'node0[users]\n' +
+                        'node1[σ: age > 30]\n' +
+                        'node2[π: id]\n' +
+                        'node0 --> node1\n' +
+                        'node1 --> node2';
+        assert.strictEqual(result, expected);
+    });
 
+    test('Join Statements', () => {
+        const ast = [{
+            type: 'select',
+            from: [{ table: 'users' }, { table: 'roles', join: 'INNER', on: { type: 'binary_expr', left: { type: 'column_ref', column: 'users.role_id' }, operator: '=', right: { type: 'column_ref', column: 'roles.id' } } }],
+            columns: [{ expr: { type: 'column_ref', column: 'users.id' } }]
+        }];
+        const result = convertToRelationalAlgebra(ast);
+        const expected = 'flowchart BT\n' +
+                        'node0[users]\n' +
+                        'node1[roles]\n' +
+                        'node2((JOIN))\n' +
+                        'node3[π: users.id]\n' +
+                        'node0 --> node2\n' +
+                        'node1 --> node2\n' +
+                        'node2 --> node3';
+        assert.strictEqual(result, expected);
     });
 });
