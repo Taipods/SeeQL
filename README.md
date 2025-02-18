@@ -36,7 +36,13 @@ N/A
 
 1. Git Clone SeeQL from Repository
 
-2. Once installed, reinstall npm install and npm install sqlite3. Just in case, we've had a ton of issues when it comes to sqlite3 so just to be sure.
+git clone https://github.com/Taipods/SeeQL.git
+
+2. Once installed, reinstall npm install and npm install sqlite3 in terminal. Just in case, we've had a ton of issues when it comes to sqlite3 so just to be sure.
+
+npm install
+
+npm install sqlite3
 
 3. Press f5 and run the vscode extension debugger
 
@@ -51,6 +57,8 @@ N/A
 2. Press f5 and run the vscode extension debugger to test any of the commands and correct visualization
 
 3. Running npm run test
+
+npm run test
 
 4. Run test through
 
