@@ -1,16 +1,21 @@
 import * as vscode from 'vscode';
 import { Parser as SqlParser } from 'node-sql-parser';
 
-
+// Not needed
 export interface Table {
     name: string;
 }
 
+// Not needed old approach
 export interface conditions {
     left: string;
     right: string;
     condition: string;
 }
+
+/**
+ * This function is used to create a relational algebra from a SQL file.
+ */
 export async function createRelationalAlgebra() {
     // Pulls file directory
     const fileUris = await vscode.window.showOpenDialog({
@@ -47,11 +52,8 @@ export async function createRelationalAlgebra() {
         );
 
         const ast = new SqlParser().astify(fileContents.join('\n\n'));
-
         filePanel.webview.html = showTableNames(fileContents);
         createRelationalAlgebra.webview.html = showRelationalAlgebra(ast); // Pass the AST directly
-
-
     } else {
         vscode.window.showInformationMessage('No files selected.');
     }
@@ -79,6 +81,11 @@ function showTableNames(fileContents: string[]): string {
     `;
 }
 
+/**
+ * Shows the relational algebra of the selected files in a WebView.
+ * @param ast: Contains the AST's of the queries from the sql parser
+ * @returns: the HTML needed for the WebView
+ */
 function showRelationalAlgebra(ast: any): string {
     return `
         <!DOCTYPE html>
@@ -228,6 +235,8 @@ export function convertToRelationalAlgebra(ast: any): string {
  * Helper function to convert a WHERE (or JOIN ON) clause expression
  * into a string. This simple implementation handles binary expressions,
  * column references, and literals.
+ * @param expr The expression to convert
+ * @returns The string representation of the expression
  */
 function convertWhereClause(expr: any): string {
     if (!expr) {
