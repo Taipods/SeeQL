@@ -3,12 +3,12 @@ name: main-test
 on:
   push:
     branches:
-      - '*'
+      - main
   pull_request: 
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-15
 
     steps:
     - name: Checkout code
