@@ -22,5 +22,14 @@ SQL, at times, feels very difficult to work with. We want our extension to make 
 
 Users appreciate release notes as you update your extension.
 
+## Building and Testing System
+
+## How to use system
+Steps:
+1. Open Command Line
+2. Find any SeeQL Command Lines
+3. Select any single one command line
+4. Choose a related SeeQl file to that command line
+5. Once selected, visualization of that SQL file should be up whether Er Diagram, Relational Algebra, etc.
 ### 1.0.0
 (WIP)
