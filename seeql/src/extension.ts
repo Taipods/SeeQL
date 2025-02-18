@@ -6,6 +6,7 @@ import { createDiagram } from './commands/createDiagram';
 import { createRelationalAlgebra } from './commands/createRelationalAlgebra';
 import { pullDB } from './sqlite/DBManager';
 import {runQuery } from './sqlite/RunQuery';
+import { SQLCodeLensProvider } from './sqlite/SQLCodeLensProvider';
 
 // So this is the DB that stores multiple tables insides (collections of tables)
 let db: sqlite3.Database | null = null; // constant for DB
@@ -42,20 +43,26 @@ export function activate(context: vscode.ExtensionContext) {
 	// All the error handling is done inside the call to the wrapper
 	// Gonna replace with another call on push button or something
 	context.subscriptions.push(
-		vscode.commands.registerCommand('seeql.runQuery', async () => {
+		vscode.commands.registerCommand('seeql.runQuery', async (document: vscode.TextDocument, line: number) => {
 			if (!db) {
 				vscode.window.showInformationMessage("Brother where my promised DB dawg");
 				return;
 			}
-			runQuery(db);
-			// printDBTableNames(db);
+        	runQuery(db);
 		})
 	);
+
+	// Register SQL CodeLensProvider
+    context.subscriptions.push(
+        vscode.languages.registerCodeLensProvider({ language: "sql" }, new SQLCodeLensProvider())
+    );
 }
 
 
 // This method is called when your extension is deactivated
 export function deactivate() {
 	// Close down Database given one is open
-	if (db) {db.close();}
+	if (db) {
+		db.close();
+	}
 }
