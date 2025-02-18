@@ -1,9 +1,17 @@
 import * as vscode from 'vscode';
 
+/** 
+* This class parses through a SQL file and finds SELECT statements, adding buttons.
+**/
 export class SQLCodeLensProvider implements vscode.CodeLensProvider {
     private codeLenses: vscode.CodeLens[] = [];
     private regex: RegExp = /\bSELECT\b/i; // detect SELECT statements
 
+    /**
+    * This finds all SELECT SQL queries on a file, adding a run button to each query.
+    * @param document A document with SQL queries
+    * @returns An array with all the SELECT queries in the SQL file
+    **/
     public provideCodeLenses(document: vscode.TextDocument): vscode.CodeLens[] {
         this.codeLenses = [];
         const text = document.getText();
