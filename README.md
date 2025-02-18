@@ -30,7 +30,32 @@ N/A
 
 ## Building and Testing System
 
+### Building System
+
+#### Steps:
+
+1. Git Clone SeeQL from Repository
+
+2. Once installed, reinstall npm install and npm install sqlite3. Just in case, we've had a ton of issues when it comes to sqlite3 so just to be sure.
+
+3. Press f5 and run the vscode extension debugger
+
+4. Refer to How To Use System
+
+### Testing System
+
+#### Test: 
+
+1. Follow the same steps as Building System
+
+2. Press f5 and run the vscode extension debugger to test any of the commands and correct visualization
+
+3. Running npm run test
+
+4. Run test through
+
 ## Functional Use Cases
+
 -- Create a E.R Diagram based on CREATE TABLE SQL statements: User can select a basic command, SeeQL: Create a Diagram of a Create SQL Statement and insert an associated Create Table SQL file, then their data is parsed in the backend and displayed via Webview through mermaid.js. The tables are displayed and connected through lines if references.
 
 -- Create relational algebra based on user created query: User can select a basic command through the command line, SeeQL: Create a Relational Algebra Diagram and insert an associated SQL query, that statement is the parsed in the backend through an SQL parser converted to an ast. The ast is then converted into data that mermaid.js can use to then display that through a diagram and displayed via Webview.
