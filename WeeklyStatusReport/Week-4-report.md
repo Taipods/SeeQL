@@ -58,6 +58,13 @@ Goals for Next week:
 - Finalize UI for webview
   
 ### Elio
+Progress:
+- Implemented the function that makes the RA plan from an AST.
+- Helped work on the slides
+
+Goals for Next week:
+- Refine the ERDiagram and RA commands
+- Maybe start a new feature
 
 ### Annika
 Progress:
