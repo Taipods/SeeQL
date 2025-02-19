@@ -35,8 +35,20 @@ Individual Progress
 ### Elio
 
 ### Annika
+Progress:
+
+- Reimplemented runQuery to take string - 2/17
+- Unit tests for run query - 2/20
+- Documentation for the runQuery and SQLCodeLens classes - 2/18
+
+Goals for next week:
+
+- Reimplement faulty create database feature - 2/25
+- Write unit tests for creating database - 2/24
+- Fix faulty button class to call query correctly - 2/23
 
 ### Samriddhi
+
 
 Plans for next week
 -------------------
