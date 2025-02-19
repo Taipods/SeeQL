@@ -34,9 +34,11 @@ Individual Progress
 Progress:
 - Fixed testing and pipline
 - rototyping Webview outputs
+  
 Goals for Next week:
 - Create unit test for pullDB, 
 - Finalize UI for webview
+  
 ### Elio
 
 ### Annika
