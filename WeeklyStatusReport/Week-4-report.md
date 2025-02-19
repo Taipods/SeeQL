@@ -31,7 +31,12 @@ Individual Progress
 ### James
 
 ### Tai
-
+Progress:
+- Fixed testing and pipline
+- rototyping Webview outputs
+Goals for Next week:
+- Create unit test for pullDB, 
+- Finalize UI for webview
 ### Elio
 
 ### Annika
@@ -52,7 +57,10 @@ Goals for next week:
 
 Plans for next week
 -------------------
-> You shall briefly specify what are your next priorities for the next reporting period. Rank them as: important and urgent, just important, and just urgent.
+- Talk about whether to include aggeragtes for RA, and createDB implementation possible?
+- View UI for table output
+- Start Talking about including bot features and strech goals
+- Finalize core features.
 
 Requests and proposals
 ----------------------
