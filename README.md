@@ -46,6 +46,8 @@ npm install sqlite3
 
 3. Press f5 and run the vscode extension debugger
 
+![Alt text](seeql/media/Images/debugger.png)
+
 4. Refer to How To Use System
 
 ### Testing System
@@ -55,6 +57,8 @@ npm install sqlite3
 1. Follow the same steps as Building System
 
 2. Press f5 and run the vscode extension debugger to test any of the commands and correct visualization
+
+![Alt text](seeql/media/Images/debugger.png)
 
 3. Running npm run test
 
@@ -92,5 +96,4 @@ Steps:
 ![Alt text](seeql/media/Images/Step4.png)
 
 ## Release Notes
-### 1.0.0
-(WIP)
+### Current Tag: v0.7.3.7
