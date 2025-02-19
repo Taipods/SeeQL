@@ -94,6 +94,9 @@ Steps:
 5. Once selected, visualization of that SQL file should be up whether Er Diagram, Relational Algebra, etc.
 
 ![Alt text](seeql/media/Images/Step4.png)
-
+## Specific commands demo
+OpenDB:
+- Opens a .db file to run querries
+![OpenDb](https://github.com/user-attachments/assets/d2f46ef4-ebaf-448b-a850-346abb6017bd)
 ## Release Notes
 ### Current Tag: v0.7.3.7
