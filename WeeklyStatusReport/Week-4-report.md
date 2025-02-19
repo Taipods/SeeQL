@@ -8,11 +8,17 @@ Weekly Report
 Goals for This Week
 -------
 Talk about impleamentation of Joins and holding Multiple database for possible joins.
+
 Write more test cases 2/13-2/15
+
 Start and finish Relational Algebra Visualizer 2/11-15
+
 Merge branches together 2/13
+
 Determine what parser we're using 2/12
+
 Prepare for Beta
+
 Have what we're going to say for beta 2/17-2/18
 
 Reminder
@@ -29,7 +35,19 @@ Issues
 Individual Progress
 ----------
 ### James
+Progress
+- Updated Jira
+- Set up meetings 2/12, 2/17, 2/18
+- Started basics for Relational Algebra 2/14
+- Made test cases for Relational Algebra and Create Diagram to ensure basic funcitonality for beta 2/17
+- Updated Read Me for Beta 2/17
+- Helped create slides for Beta 2/17, 2/18
 
+Goals for Next Week:
+- Create more unit tests for functionality
+- Either work more into the create Diagram and relational Algebra fix loose ends
+- Have others use product
+- Possibly start AI implementation
 ### Tai
 Progress:
 - Fixed testing and pipline
