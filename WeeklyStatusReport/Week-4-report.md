@@ -80,7 +80,14 @@ Goals for next week:
 - Fix faulty button class to call query correctly - 2/23
 
 ### Samriddhi
+Progress:
+- Reimplemented the functionality to parse through an SQL file for queries
+- Created the run button
+- Unit tests for SQL parsing and query execution
 
+Goals for next week:
+- Make sure the button works for multiple queries on the same file
+- Test SQL parsing on larger, more complex files
 
 Plans for next week
 -------------------
