@@ -29,8 +29,24 @@ export class SQLCodeLensProvider implements vscode.CodeLensProvider {
                 inSelectStatement = true;
                 selectStatement = line;
                 startLine = i;
-            // Given in SELECT, keep storing statement, and check
-            // if lines end with semi colon
+                 // Check if the line ends with a semicolon (single-line SELECT statement)
+                 if (line.trim().endsWith(";")) {
+                    inSelectStatement = false;
+                    const position = new vscode.Position(startLine, 0);
+                    const range = new vscode.Range(position, new vscode.Position(i, line.length));
+                    const command: vscode.Command = {
+                        title: "▶ Run Query",
+                        command: "seeql.runQuery",
+                        arguments: [selectStatement] // Pass only the query string
+                    };
+
+                    console.log("Generated query:", selectStatement); // Log the generated query
+                    // Add the CodeLens to the array
+                    this.codeLenses.push(new vscode.CodeLens(range, command));
+                    selectStatement = "";
+                }
+                // Given in SELECT, keep storing statement, and check
+                // if lines end with semi colon
             } else if (inSelectStatement) {
                 selectStatement += "\n" + line;
                 if (line.trim().endsWith(";")) {
