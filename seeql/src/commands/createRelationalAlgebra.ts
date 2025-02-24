@@ -100,7 +100,28 @@ function showRelationalAlgebra(ast: any): string {
             </script>
         </head>
         <body>
-            <h1>SeeQL: Relational Algebra</h1>
+            <div class="legend">
+                <h1>SeeQL: Relational Algebra</h1>
+                <h2>Legend</h2>
+                <table border="1">
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Meaning</th>
+                    </tr>
+                    <tr>
+                        <td><strong>σ</strong></td>
+                        <td>Selection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>π</strong></td>
+                        <td>Projection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⋈</strong></td>
+                        <td>Natural Join</td>
+                    </tr>
+                </table>
+            </div>
             <div class="mermaid">
                 ${convertToRelationalAlgebra(ast)}
             </div>
@@ -160,7 +181,7 @@ export function convertToRelationalAlgebra(ast: any): string {
                     joinNodes.push(tNode);
                 });
                 fromNode = nextId();
-                nodes.push(`${fromNode}((JOIN))`);
+                nodes.push(`${fromNode}((JOIN ⋈))`);
                 joinNodes.forEach(tNode => {
                     edges.push(`${tNode} --> ${fromNode}`);
                 });
