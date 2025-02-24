@@ -95,8 +95,8 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
     const diagram = `
         erDiagram
         ${erDiagram.tables.map(table => `
-            ${table.name} {
-                ${table.columns.map(col => `${col.name} ${col.type}`).join('\n')}
+            ${table.name}{
+                ${table.columns.map(col => table.primaryKey.includes(col.name) ? `*${col.name} ${col.type}` : `${col.name} ${col.type}`).join('\n')}
             }
             ${table.foreignKeys.map(fk => `
                 ${table.name} ||--o| ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
@@ -115,9 +115,39 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
                 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
                 mermaid.initialize({ startOnLoad: true });
             </script>
+             <style>
+                .primaryKey rect {
+                    fill: #ffcccc; /* Change this to your desired background color */
+                }
+            </style>
         </head>
         <body>
-            <h1>SeeQl: ER Diagram</h1>
+            <div class="legend">
+                <h1>SeeQl: ER Diagram</h1>
+                <h2>Legend</h2>
+                <table border="1">
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Meaning</th>
+                    </tr>
+                    <tr>
+                        <td><strong>*</strong></td>
+                        <td>Primary Key</td>
+                    </tr>
+                    <tr>
+                        <td><strong>|o---------------||</strong></td>
+                        <td>Many-to-One Relationship (o is reference start)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>|---------------||</strong></td>
+                        <td>One-to-One Relationship (o is reference start)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>|o---------------o|</strong></td>
+                        <td>Many-to-Many Relationship (o is reference start)</td>
+                    </tr>
+                </table>
+            </div>
             <div class="mermaid">
                 ${diagram}
             </div>

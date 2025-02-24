@@ -13,6 +13,14 @@
     stroke: #000000 !important; /* Change node borders */
 }
 
+.mermaid .primaryKey rect {
+    fill: black !important
+}
+
 .mermaid .er .header {
+    fill: #ffffff !important
+}
+
+.mermaid .er .entityBox {
     fill: #ffffff !important
 }
