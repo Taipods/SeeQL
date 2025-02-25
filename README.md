@@ -122,4 +122,5 @@ Steps:
 
 
 ## Release Notes
-### Current Tag: v0.7.4.7
+### Current Tag: v0.7.5.7
+### Beta++
