@@ -4,6 +4,7 @@ All Source Code for this software lies inside Seeql/seeql/src.
 
 ## Directory Layout:
 -> Assuming inside seeql
+  - package.json contains declarations of commands
   
 -> Assuming inside seeql/src
   - extension.ts is where all our register commands are.
@@ -25,7 +26,19 @@ To build the software follow these steps
 
 ## Testing:
 
-Npm run test
+### How to test the software
+Prerequesites:
+Ensure you have the following installed:
+1. Node.js
+2. npm
+3. Vs Code
+
+### Steps
+1. Run npm install
+2. Run npm install sqlite3
+3. Run npm run compile
+4. Run npm run test
+
 
 ## Build a release:
 
