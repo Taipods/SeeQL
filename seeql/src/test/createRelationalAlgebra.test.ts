@@ -53,7 +53,7 @@ suite('CreateRelationalAlgebra: Parser Test', () => {
         const expected = 'flowchart BT\n' +
                         'node0[users]\n' +
                         'node1[roles]\n' +
-                        'node2((JOIN))\n' +
+                        'node2((JOIN ⋈))\n' +
                         'node3[π: users.id]\n' +
                         'node0 --> node2\n' +
                         'node1 --> node2\n' +
