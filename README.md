@@ -54,7 +54,7 @@ npm run compile
 
 ### Testing System
 
-#### Test: 
+#### Test:
 
 1. Follow the same steps as Building System
 
@@ -100,14 +100,14 @@ Steps:
 ### OpenDB:
 - Opens a .db file to run querries
 - On success, prompts button left with open DB
-  
+
 ![OpenDb](https://github.com/user-attachments/assets/d2f46ef4-ebaf-448b-a850-346abb6017bd)
 
 ### RunQuerry:
 - Requires a DB to be opened by OpenDB command
 - Requires user to write a sql statment inside sql file
 - On click run querry, table appear with stats
-  
+
 ![Untitled design](https://github.com/user-attachments/assets/101095d3-358a-4217-9bb0-637da8ddb78f)
 
 ### CreateERDiagram
@@ -117,10 +117,10 @@ Steps:
 
 ### CreateRelationAlgebra
 - Creates a relation algerbra diagram given a sql file with valid querry
-  
+
   ![RAdemo](https://github.com/user-attachments/assets/15590a33-5a54-40d3-88a6-8263a9ae510b)
 
 
 ## Release Notes
-### Current Tag: v0.7.5.7
+### Current Tag: v0.7.6.7
 ### Beta++
