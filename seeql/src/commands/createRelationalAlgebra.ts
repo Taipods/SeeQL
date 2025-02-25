@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { Parser as SqlParser } from 'node-sql-parser';
 
+
+// Testing git branch
 // Not needed
 export interface Table {
     name: string;
