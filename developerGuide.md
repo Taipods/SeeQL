@@ -9,7 +9,7 @@ All Source Code for this software lies inside Seeql/seeql/src.
 -> Assuming inside seeql/src
   - extension.ts is where all our register commands are.
   - test directory is all our tests + testing files. 
-  - commands is all the logic behind the commands passed in extension.ts
+  - commands directory is all the logic behind the E/R + Relational commands passed in extension.ts
   - sqlite is logic to build pull DB + run query command.
   - parser contains our own produce regex parser.
 
