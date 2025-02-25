@@ -17,7 +17,7 @@ Requirements to Command Lines
 
 SeeQL: Create a Diagram of a Create SQL Statement: For this you need an SQL statement, that holds Create Tables in the file. If there are no create tables found nothing will be outputted.
 
-SeeQL: Create a Relational Algebra Diagram: For this you need a general SQL statement, as long as it's a SQL query. As long as it's a valid SQL query, it should work.
+SeeQL: Create a Relational Algebra Diagram: For this you need a general non-nested SQL SELECT query. If the query is unsupported (is nested, or incorrect syntax), the webview displays a corresponding message.
 
 SeeQL: Open Database: For this to function, you need a db file. All this does is it takes in a file.
 
