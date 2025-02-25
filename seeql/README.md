@@ -1,16 +1,30 @@
 # seeql README
 
-This is the README for your extension "seeql". After writing up a brief description, we recommend including the following sections.
+SeeQL is an extension meant to help users when it comes to working with SQL on Visual Studio Code. Overall, it’s meant to help users' overall quality of life when it comes to working with it. Through visualization, helping build SQL queries, and simplifying issues that come with working with SQL. Issues like making up your own SQL statements, knowing if you have the expected output, and visualizing in general. SQL, at times, feels very difficult to work with. We want our extension to make it feel as simple as possible for the user.
 
 ## Features
+### OpenDB:
+- Opens a .db file to run querries
+- On success, prompts button left with open DB
+  
+![OpenDb](https://github.com/user-attachments/assets/d2f46ef4-ebaf-448b-a850-346abb6017bd)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### RunQuerry:
+- Requires a DB to be opened by OpenDB command
+- Requires user to write a sql statment inside sql file
+- On click run querry, table appear with stats
+  
+![Untitled design](https://github.com/user-attachments/assets/101095d3-358a-4217-9bb0-637da8ddb78f)
 
-For example if there is an image subfolder under your extension project workspace:
+### CreateERDiagram
+- Creates a E/R diagram given a sql file with valid querry
 
-\!\[feature X\]\(images/feature-x.png\)
+![Er](https://github.com/user-attachments/assets/2d6bdae5-aef5-4c68-a659-32790cfab2ff)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### CreateRelationAlgebra
+- Creates a relation algerbra diagram given a sql file with valid querry
+  
+  ![RAdemo](https://github.com/user-attachments/assets/15590a33-5a54-40d3-88a6-8263a9ae510b)
 
 ## Requirements
 
