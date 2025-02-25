@@ -61,5 +61,28 @@ suite('Name of Command Testing: general name of what you are testing', () => {
 This is for simple unit testing. That's all that's needed. In order to test visually, you'd have to test it by yourself. So far, it's best to simply test out any parsers that were made and ensure data is parsed and processed for diagrams properly.
 
 
-## Build a release:
-
+## Build a Release
+To build a release of the software, follow these steps:
+1. Update Version Number (manual task)
+   Before invoking the build system, update the version number in:
+     - The main application source code (`package.json`)
+     - Documentation, including `README.md`, and any versioned API references
+2. Commit and Tag the Release (manual task)
+     - Ensure all code changes are committed to the repository
+     - Create a Git tag with the version number
+     - Push the tag to the remote repository
+3. Run the Build System (automated task)
+     - Execute the build command (`npm run build`)
+     - The build system should generate the required binaries, executables, or packaged files
+4. Perform Sanity Checks (manual task)
+   After building the release, perform these checks:
+     - Verify that the built artifaccts contain the correct version
+     - Run automated tests (`npm test`)
+     - Manually test key functionalities, if necessary
+     - Ensure no debug lods, test credentials, or sensitive information are included in the build
+5. Package and Publish the Release (automated task)
+     - Upload the release artifacts to the appropriate platform
+     - Deploy to staging or production environments, if applicable
+6. Update Documentation and Notify Users (manual task)
+     - Update any relevant documentation
+     - Announce the release via internal communication channels or public changelogs
