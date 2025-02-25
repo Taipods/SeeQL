@@ -5,6 +5,7 @@ All Source Code for this software lies inside Seeql/seeql/src.
 ## Directory Layout:
 -> Assuming inside seeql
   - package.json contains declarations of commands
+  - media directory holds UI (css and picture for readme)
   
 -> Assuming inside seeql/src
   - extension.ts is where all our register commands are.
