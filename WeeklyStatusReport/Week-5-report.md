@@ -58,10 +58,12 @@ Goals for Next week
 
 ## Elio
 Progress
-
+- Refined the RA command to support more general SQL queries
+- Added additional unit tests for the RA command
   
 Goals for Next week
-
+- Finalize the ER and RA features
+- Start work on another feature
 
 ## Annika
 
