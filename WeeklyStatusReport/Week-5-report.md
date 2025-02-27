@@ -47,10 +47,14 @@ Goals for Next week
 
 ## Tai
 Progress
-
+- Fully Intergrated Buttons for queries
+- Start talks about implmentation detail for ai implmentations
+- Finishing Up UI parts for the results of query
+- Beta With team and user & dev guides
 
 Goals for Next week
-
+- Finish Up UI parts
+- Impleament responsible parts for AI
 
 ## Elio
 Progress
