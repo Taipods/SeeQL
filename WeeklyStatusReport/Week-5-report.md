@@ -80,9 +80,14 @@ Goals for next week:
 
 ## Samriddhi
 Progress:
-
+- Worked on the beta presentation with the team
+- Discussed how to integrate AI into the project
+- Researched methods for generating SQL queries from user prompts
 
 Goals for next week:
+- Implement AI integration to generate SQL queries based on user input
+- Make sure the AI model interacts with the database
+- Write test cases for AI-generated queries
 
 
 Plans for next week
