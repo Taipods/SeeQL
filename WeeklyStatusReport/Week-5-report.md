@@ -33,9 +33,16 @@ Individual Progress
 -----------
 ## James
 Progress
-
+- Set up Jira
+- Presented Beta with team
+- Set up meetings for the whole week
+- Assigned new tasks past beta
+- Finshing up code on P0 for Create Er Diagram
   
 Goals for Next week
+- Finish up Create Er Diagram
+- Set up meetings agenda
+- Get ready for final pushes towards project
 
 
 ## Tai
@@ -93,4 +100,4 @@ Question For TA:
 ----------------------
 > How was your day?
 
-> Do you think Batman could be real? If he was?
+> What now? If we are finished, at this point with P0 and P1 goals. Do we just hit our stretch goals till the final presentation?
