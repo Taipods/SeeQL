@@ -67,9 +67,14 @@ Goals for Next week
 
 Progress:
 
-  
+- Discuss on planned reimplementation for faulty create DB - 2/24
+- Implemented creating new empty db with sqlite - 2/24
+- Beta presentation with team - 2/20
+
 Goals for next week:
 
+- Fix parsing for createDB - 3/3
+- Write unit tests for creating database - 3/3
 
 ## Samriddhi
 Progress:
