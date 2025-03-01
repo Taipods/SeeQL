@@ -98,9 +98,28 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
             ${table.name}{
                 ${table.columns.map(col => table.primaryKey.includes(col.name) ? `*${col.name} ${col.type}` : `${col.name} ${col.type}`).join('\n')}
             }
-            ${table.foreignKeys.map(fk => `
-                ${table.name} ||--o| ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
-            `).join('\n')}
+        ${table.foreignKeys.map(fk => {
+            // One to One Relationship
+            for(let i = 0; i < fk.columns.length; i++) {
+                const fkColumn = fk.columns[i];
+                const tableColumn = table.columns.find(col => col.name === fkColumn);
+                if (tableColumn?.constraints?.includes('UNIQUE')) {
+                    return `
+                        ${table.name} ${'||--||'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
+                    `;
+                }
+            }
+            // Many to Many Relationship
+            if (table.primaryKey.length > 1) {
+                return `
+                    ${table.name} ${'|o--o{'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
+                `;
+            }
+            // Many to One Relationship
+            return `
+                ${table.name} ${'||--o|'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
+            `;
+        }).join('\n')}
         `).join('\n')}
     `;
     return `

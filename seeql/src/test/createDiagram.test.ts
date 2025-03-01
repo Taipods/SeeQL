@@ -146,4 +146,73 @@ suite('CreateDiagram: Create Table Tests/Parser', () => {
         }]});
     });
 
+    test('Parse Actual File:  One-To-One', () => {
+        const path = require('path');
+        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'One-To-One.sql');
+        const sql = fs.readFileSync(filePath, 'utf8');
+        const result = parseSQLForERDiagram(sql);
+        assert.deepStrictEqual(result, {tables: [{
+            name: 'Person',
+            columns: [
+                {name: 'person_id', type: 'int', constraints: undefined},
+                {name: 'name', type: 'varchar(100)', constraints: ["NOT", "NULL"]},  
+            ],
+            primaryKey: ['person_id'],
+            foreignKeys: [],
+        }, {name: 'Passport',
+            columns: [
+                {name: 'passport_id', type: 'int', constraints: undefined},
+                {name: 'person_id', type: 'int', constraints: ["UNIQUE"]},
+                {name: 'passport_number', type: 'varchar(50)', constraints: ["NOT", "NULL"]},  
+            ],
+            primaryKey: ['passport_id'],
+            foreignKeys: [{
+                columns: ['person_id'],
+                referencesColumns: ['person_id'],
+                referencesTable: 'Person'
+            }],
+        }]});
+    });
+
+    test('Parse Actual File:  Many to Many', () => {
+        const path = require('path');
+        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'ManyToMany.sql');
+        const sql = fs.readFileSync(filePath, 'utf8');
+        const result = parseSQLForERDiagram(sql);
+        assert.deepStrictEqual(result, {
+            tables: [{
+                name: 'students',
+                columns: [
+                    { name: 'id', type: 'INT', constraints: undefined },
+                    { name: 'name', type: 'VARCHAR(100)', constraints: ["NOT", "NULL"] },
+                ],
+                primaryKey: ['id'],
+                foreignKeys: [],
+            }, {
+                name: 'courses',
+                columns: [
+                    { name: 'id', type: 'INT', constraints: undefined },
+                    { name: 'title', type: 'VARCHAR(100)', constraints: ["NOT", "NULL"] },
+                ],
+                primaryKey: ['id'],
+                foreignKeys: [],
+            }, {
+                name: 'student_courses',
+                columns: [
+                    { name: 'student_id', type: 'INT', constraints: undefined },
+                    { name: 'course_id', type: 'INT', constraints: undefined },
+                ],
+                primaryKey: ['student_id', 'course_id'],
+                foreignKeys: [{
+                    columns: ['student_id'],
+                    referencesColumns: ['id'],
+                    referencesTable: 'students'
+                }, {
+                    columns: ['course_id'],
+                    referencesColumns: ['id'],
+                    referencesTable: 'courses'
+                }],
+            }]
+        });
+    });
 });
