@@ -100,6 +100,7 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
             }
         ${table.foreignKeys.map(fk => {
             // One to One Relationship
+            // Small error doesn't account for non unique
             for(let i = 0; i < fk.columns.length; i++) {
                 const fkColumn = fk.columns[i];
                 const tableColumn = table.columns.find(col => col.name === fkColumn);
@@ -110,7 +111,7 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
                 }
             }
             // Many to Many Relationship
-            if (table.primaryKey.length > 1) {
+            if (table.foreignKeys.length > 1) {
                 return `
                     ${table.name} ${'|o--o{'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
                 `;
