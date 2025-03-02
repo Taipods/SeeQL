@@ -147,19 +147,29 @@ export function convertToRelationalAlgebra(ast: any): string {
             displayMapping[tbl.table] = alias ? `${tbl.table} ${alias}` : tbl.table;
         }
 
-        // Local converter that uses alias mapping.
-        function localConvertClause(expr: any): string {
+        // Helper to convert expressions using the alias mapping.
+        function convertClause(expr: any, parentOp?: string): string {
+            // Handle expression lists differently based on the parent operator.
+            if (expr.type === 'expr_list' && Array.isArray(expr.value)) {
+                if (parentOp && (parentOp.toUpperCase() === 'IN' || parentOp.toUpperCase() === 'NOT IN')) {
+                    // For IN/NOT IN, join with commas and wrap in parentheses.
+                    return '(' + expr.value.map((item: any) => convertClause(item)).join(', ') + ')';
+                } else {
+                    // Default handling (for BETWEEN)
+                    return expr.value.map((item: any) => convertClause(item)).join(" <b>AND</b> ");
+                }
+            }
             if (!expr) { return ''; }
             if (expr.type === 'binary_expr') {
-                const left = localConvertClause(expr.left);
+                const left = convertClause(expr.left);
                 const op = expr.operator;
-                const right = localConvertClause(expr.right);
+                const right = convertClause(expr.right, op);
                 return `${left} ${op} ${right}`;
             } else if (expr.type === 'column_ref') {
                 const tbl = expr.table ? (translationMapping[expr.table] || expr.table) : '';
                 return tbl ? `${tbl}.${expr.column}` : expr.column;
             } else if (expr.type === 'aggr_func') {
-                const argStr = expr.args && expr.args.expr ? localConvertClause(expr.args.expr) : '';
+                const argStr = expr.args && expr.args.expr ? convertClause(expr.args.expr) : '';
                 return `${expr.name}(${argStr})`;
             } else if (expr.type === 'number' || expr.type === 'string' || expr.type === 'param' || typeof expr.type === 'string') {
                 return expr.value;
@@ -175,7 +185,7 @@ export function convertToRelationalAlgebra(ast: any): string {
             let aggs: { key: string, value: string }[] = [];
             if (!expr) { return aggs; }
             if (expr.type === 'aggr_func') {
-                const aggStr = localConvertClause(expr);
+                const aggStr = convertClause(expr);
                 // In HAVING, no alias is provided; use self.
                 aggs.push({ key: aggStr, value: aggStr });
             }
@@ -221,10 +231,7 @@ export function convertToRelationalAlgebra(ast: any): string {
                 let joinOp = tbl.join ? tbl.join : "⋈";
                 let joinLabel = `<b>${joinOp}</b>`;
                 // Check for explicit ON condition.
-                let explicitCond = "";
-                if (tbl.on) {
-                    explicitCond = localConvertClause(tbl.on);
-                }
+                let explicitCond = tbl.on ? convertClause(tbl.on) : "";
                 // Implicit join conditions.
                 const applicableConds = joinConditions.filter((cond) => {
                     if (cond.type === 'binary_expr' && cond.operator === '=') {
@@ -237,7 +244,7 @@ export function convertToRelationalAlgebra(ast: any): string {
                 });
                 let implicitCond = "";
                 if (applicableConds.length > 0) {
-                    implicitCond = applicableConds.map(localConvertClause).join(" <b>AND</b> ");
+                    implicitCond = applicableConds.map(expr => convertClause(expr)).join(" <b>AND</b> ");
                     joinConditions = joinConditions.filter(cond => !applicableConds.includes(cond));
                 }
                 let condParts: string[] = [];
@@ -266,7 +273,7 @@ export function convertToRelationalAlgebra(ast: any): string {
             // Extract aggregates from SELECT clause.
             const aggregateGroupSelect = query.columns.filter((col: any) => col.expr && col.expr.type === 'aggr_func')
                 .map((col: any) => {
-                    const exprStr = localConvertClause(col.expr);
+                    const exprStr = convertClause(col.expr);
                     const alias = col.as ? (typeof col.as === 'object' ? (col.as.value || col.as.toString()) : col.as) : exprStr;
                     return { key: exprStr, value: alias };
                 });
@@ -293,10 +300,10 @@ export function convertToRelationalAlgebra(ast: any): string {
             currentNode = groupNode;
             let sigmaConds: string[] = [];
             if (nonJoinConditions.length > 0) {
-                sigmaConds.push(nonJoinConditions.map(localConvertClause).join(" <b>AND</b> "));
+                sigmaConds.push(nonJoinConditions.map(expr => convertClause(expr)).join(" <b>AND</b> "));
             }
             if (query.having) {
-                sigmaConds.push(localConvertClause(query.having));
+                sigmaConds.push(convertClause(query.having));
             }
             if (sigmaConds.length > 0) {
                 const sigmaNode = nextId();
@@ -307,13 +314,13 @@ export function convertToRelationalAlgebra(ast: any): string {
         } else {
             if (nonJoinConditions.length > 0) {
                 const sigmaNode = nextId();
-                nodes.push(`${sigmaNode}["<b>σ</b>: ${nonJoinConditions.map(localConvertClause).join(" <b>AND</b> ")}"]`);
+                nodes.push(`${sigmaNode}["<b>σ</b>: ${nonJoinConditions.map(expr => convertClause(expr)).join(" <b>AND</b> ")}"]`);
                 edges.push(`${currentNode} --> ${sigmaNode}`);
                 currentNode = sigmaNode;
             }
             if (query.having) {
                 const sigmaNode = nextId();
-                nodes.push(`${sigmaNode}["<b>σ</b>: ${localConvertClause(query.having)}"]`);
+                nodes.push(`${sigmaNode}["<b>σ</b>: ${convertClause(query.having)}"]`);
                 edges.push(`${currentNode} --> ${sigmaNode}`);
                 currentNode = sigmaNode;
             }
@@ -326,7 +333,7 @@ export function convertToRelationalAlgebra(ast: any): string {
                     if (col.expr.type === 'column_ref') {
                         return col.expr.table ? `${translationMapping[col.expr.table] || col.expr.table}.${col.expr.column}` : col.expr.column;
                     } else if (col.expr.type === 'aggr_func') {
-                        return col.as ? (typeof col.as === 'object' ? (col.as.value || col.as.toString()) : col.as) : localConvertClause(col.expr);
+                        return col.as ? (typeof col.as === 'object' ? (col.as.value || col.as.toString()) : col.as) : convertClause(col.expr);
                     } else if (col.expr.value) {
                         return col.expr.value;
                     }
@@ -402,46 +409,4 @@ function splitWhereConditions(expr: any, fromTables: string[]): { joinConditions
     }
     helper(expr);
     return { joinConditions: joinConds, nonJoinConditions: nonJoinConds };
-}
-
-/**
- * Helper to extract attributes from an expression.
- */
-function extractAttributes(expr: any): string[] {
-    let attrs: string[] = [];
-    if (!expr) { return attrs; }
-    if (expr.type === 'binary_expr') {
-        attrs = attrs.concat(extractAttributes(expr.left));
-        attrs = attrs.concat(extractAttributes(expr.right));
-    } else if (expr.type === 'aggr_func') {
-        const argStr = expr.args && expr.args.expr ? convertWhereClause(expr.args.expr) : '';
-        attrs.push(`${expr.name}(${argStr})`);
-    } else if (expr.type === 'column_ref') {
-        attrs.push(expr.table ? `${expr.table}.${expr.column}` : expr.column);
-    }
-    return attrs;
-}
-
-/**
- * Fallback function to convert an expression into a string (without alias translation).
- */
-function convertWhereClause(expr: any): string {
-    if (!expr) { return ''; }
-    if (expr.type === 'binary_expr') {
-        const left = convertWhereClause(expr.left);
-        const op = expr.operator;
-        const right = convertWhereClause(expr.right);
-        return `${left} ${op} ${right}`;
-    } else if (expr.type === 'column_ref') {
-        return expr.table ? `${expr.table}.${expr.column}` : expr.column;
-    } else if (expr.type === 'aggr_func') {
-        const argStr = expr.args && expr.args.expr ? convertWhereClause(expr.args.expr) : '';
-        return `${expr.name}(${argStr})`;
-    } else if (expr.type === 'number' || expr.type === 'string' || expr.type === 'param' || typeof expr.type === 'string') {
-        return expr.value;
-    } else if (typeof expr === 'string') {
-        return expr;
-    } else {
-        return 'unsupported_expr';
-    }
 }
