@@ -119,8 +119,7 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
             // This one was weird, but initially I thought it was based off of having multiple primary keys
             // Elio actually picked this up, foreign keys determine the many to many relationship
             // We just need to identify this.
-            if (table.primaryKey.length > 1 && table.primaryKey.every(pk => 
-    table.foreignKeys.some(fk => fk.columns.includes(pk)))) {
+            if (table.primaryKey.length > 1 && table.primaryKey.every(pk => table.foreignKeys.some(fk => fk.columns.includes(pk)))) {
                 return `
                     ${table.name} ${'|o--o{'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
                 `;
