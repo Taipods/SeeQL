@@ -8,24 +8,37 @@ import { parseSQLForERDiagram, ERDiagram } from '../parser/sqlParser';
  * @returns: 
  */
 export async function createDiagram(context: vscode.ExtensionContext) {
-    // Pulls file directory
-    const fileUris = await vscode.window.showOpenDialog({
-        canSelectMany: true,
-        openLabel: 'Select SQL Files',
-        filters: {
-            'SQL Files': ['sql']
+    let SQLfilePath = '';
+
+    // Use VS Code's built-in quick pick to select SQL files
+    const files = await vscode.workspace.findFiles('**/*.sql', '**/node_modules/**');
+    if (!files.length) {
+        vscode.window.showInformationMessage('No SQL files found in workspace.');
+        return;
+    }
+
+    const fileUris = await vscode.window.showQuickPick(
+        files.map(file => ({
+            label: `$(database) ${path.basename(file.fsPath)}`, // Adds a file icon
+            description: file.fsPath, 
+            uri: file
+        })),
+        {
+            canPickMany: false,
+            placeHolder: 'Select SQL Files for visualization'
         }
-    });
-    if (fileUris && fileUris.length > 0) {
-        // Do something with the selected files
-        vscode.window.showInformationMessage(`Selected files: ${fileUris.map(uri => uri.fsPath).join(', ')}`);
-        // Reads the content of the selected files
-        const fileContents = await Promise.all(
-            fileUris.map(async (uri) => {
-                const fileContent = await vscode.workspace.fs.readFile(uri);
-                return `File: ${uri.fsPath}\n\n${fileContent.toString()}`;
-            })
-        );
+    );
+
+    if (!fileUris) {
+        vscode.window.showInformationMessage('No files selected.');
+        return;
+    }
+
+    vscode.window.showInformationMessage(`Selected file: ${fileUris.description}`);
+
+    // Read the content of the selected files
+    const fileContent = await vscode.workspace.fs.readFile(fileUris.uri);
+    const fileContents = [`File: ${fileUris.description}\n\n${fileContent.toString()}`];
 
         // Parse SQL files for ER Diagram key words for the diagram
         const erDiagram = parseSQLForERDiagram(fileContents.join('\n\n'));
@@ -56,9 +69,6 @@ export async function createDiagram(context: vscode.ExtensionContext) {
 
         filePanel.webview.html = showTableNames(fileContents);
         visualizerPanel.webview.html = generateERDiagramHTML(erDiagram, diagramStyleSrc.toString());
-    } else {
-        vscode.window.showInformationMessage('No files selected.');
-    }
 }
 
 /**
