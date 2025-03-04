@@ -8,24 +8,37 @@ import { parseSQLForERDiagram, ERDiagram } from '../parser/sqlParser';
  * @returns: 
  */
 export async function createDiagram(context: vscode.ExtensionContext) {
-    // Pulls file directory
-    const fileUris = await vscode.window.showOpenDialog({
-        canSelectMany: true,
-        openLabel: 'Select SQL Files',
-        filters: {
-            'SQL Files': ['sql']
+    let SQLfilePath = '';
+
+    // Use VS Code's built-in quick pick to select SQL files
+    const files = await vscode.workspace.findFiles('**/*.sql', '**/node_modules/**');
+    if (!files.length) {
+        vscode.window.showInformationMessage('No SQL files found in workspace.');
+        return;
+    }
+
+    const fileUris = await vscode.window.showQuickPick(
+        files.map(file => ({
+            label: `$(database) ${path.basename(file.fsPath)}`, // Adds a file icon
+            description: file.fsPath, 
+            uri: file
+        })),
+        {
+            canPickMany: false,
+            placeHolder: 'Select SQL Files for visualization'
         }
-    });
-    if (fileUris && fileUris.length > 0) {
-        // Do something with the selected files
-        vscode.window.showInformationMessage(`Selected files: ${fileUris.map(uri => uri.fsPath).join(', ')}`);
-        // Reads the content of the selected files
-        const fileContents = await Promise.all(
-            fileUris.map(async (uri) => {
-                const fileContent = await vscode.workspace.fs.readFile(uri);
-                return `File: ${uri.fsPath}\n\n${fileContent.toString()}`;
-            })
-        );
+    );
+
+    if (!fileUris) {
+        vscode.window.showInformationMessage('No files selected.');
+        return;
+    }
+
+    vscode.window.showInformationMessage(`Selected file: ${fileUris.description}`);
+
+    // Read the content of the selected files
+    const fileContent = await vscode.workspace.fs.readFile(fileUris.uri);
+    const fileContents = [`File: ${fileUris.description}\n\n${fileContent.toString()}`];
 
         // Parse SQL files for ER Diagram key words for the diagram
         const erDiagram = parseSQLForERDiagram(fileContents.join('\n\n'));
@@ -56,9 +69,6 @@ export async function createDiagram(context: vscode.ExtensionContext) {
 
         filePanel.webview.html = showTableNames(fileContents);
         visualizerPanel.webview.html = generateERDiagramHTML(erDiagram, diagramStyleSrc.toString());
-    } else {
-        vscode.window.showInformationMessage('No files selected.');
-    }
 }
 
 /**
@@ -98,9 +108,39 @@ function generateERDiagramHTML(erDiagram: ERDiagram, css: string): string {
             ${table.name}{
                 ${table.columns.map(col => table.primaryKey.includes(col.name) ? `*${col.name} ${col.type}` : `${col.name} ${col.type}`).join('\n')}
             }
-            ${table.foreignKeys.map(fk => `
-                ${table.name} ||--o| ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
-            `).join('\n')}
+        ${table.foreignKeys.map(fk => {
+            // One to One Relationship
+            // Small error doesn't account for non unique
+            // We make a for loop, because we need to find out whether a unique is in there or not.
+            // If it's not in there we have to find out whether the primary key is in there in both the
+            // table and the referenced table as well.
+            for(let i = 0; i < fk.columns.length; i++) {
+                const fkColumn = fk.columns[i];
+                const tableColumn = table.columns.find(col => col.name === fkColumn);
+                const referencedTable = erDiagram.tables.find(t => t.name === fk.referencesTable);
+                const referencedColumn = referencedTable?.columns.find(col => col.name === fk.referencesColumns[i]);
+                if (tableColumn?.constraints?.includes('UNIQUE') ||  (table.primaryKey.length === 1 && table.primaryKey.includes(fkColumn) && referencedTable?.primaryKey.includes(fk.referencesColumns[i]))) {
+                    return `
+                        ${table.name} ${'||--||'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
+                    `;
+                }
+            }
+            // Many to Many Relationship
+            // This one was weird, but initially I thought it was based off of having multiple primary keys
+            // Elio actually picked this up, foreign keys determine the many to many relationship
+            // We just need to identify this.
+            if (table.primaryKey.length > 1 && table.primaryKey.every(pk => table.foreignKeys.some(fk => fk.columns.includes(pk)))) {
+                return `
+                    ${table.name} ${'|o--o{'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
+                `;
+            }
+            // Many to One Relationship
+            // If it doesn't ever hit the one to one then we or have a foreign key length of higher than 1.
+            // We can assume it's a many to one relationship
+            return `
+                ${table.name} ${'||--o|'} ${fk.referencesTable} : "FK References: ${fk.referencesColumns.join(', ')}"
+            `;
+        }).join('\n')}
         `).join('\n')}
     `;
     return `
