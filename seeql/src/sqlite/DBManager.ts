@@ -38,48 +38,54 @@ export async function pullDB(): Promise<sqlite3.Database | null> {
 }
 
 
-//open db given path ):
+/*
+Open Database Given the path of the database
+This function Pulls a .DB file given a filepath
+@param: String dbPath 
+@return: Returns a sqlite3 database
+*/
 export async function openDB(dbPath: string): Promise<sqlite3.Database | null> {
   // return a new DB object and or error depending on
   // if failed to open .DB file
   return new Promise((resolve, reject) => {
-      const db = new sqlite3.Database(dbPath, (err) => {
-          if (err) {
-              vscode.window.showErrorMessage('Failed to open database: ' + err.message);
-              reject(err);
-          } else {
-              vscode.window.showInformationMessage('Database opened: ' + path.basename(dbPath));
-              printDBTableNames(db);
-              resolve(db);
-          }
-      });
+    const db = new sqlite3.Database(dbPath, (err) => {
+        if (err) {
+            vscode.window.showErrorMessage('Failed to open database: ' + err.message);
+            reject(err);
+        } else {
+            vscode.window.showInformationMessage('Database opened: ' + path.basename(dbPath));
+            printDBTableNames(db);
+            resolve(db);
+        }
+    });
   });
 }
 
 
-// /*
-// TODO: Function creates a DB from sql file or csv with Create Table command
-// */
-// export async function CreateDB() {
-
-// }
-
-// Helper function to create a new SQLite database
+/*
+Makes a new database given a filepath for the database to be stored in
+@param: String for location of database
+@return: Returns a DB object for use at the location of the dbpath
+*/
 function createNewDatabase(dbPath: string): Promise<sqlite3.Database> {
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath, (err) => {
+        const db = new sqlite3.Database(dbPath, (err) => { //make new sqlite3 database
             if (err) {
-                reject(err);
                 console.log("bro please");
+                reject(err);
             } else {
-                resolve(db);
                 console.log("easy");
+                resolve(db);
             }
         });
     });
 }
 
-// Helper function to create a table from a CSV file
+/*
+Creates a database file from a CSV file, parsing the information into table(s).
+@Param: csvPath, path of csv file, dbPath, path of db file in string.
+@Return: N/a 
+*/
 async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
     const db = await createNewDatabase(dbPath);
     const tableName = path.basename(csvPath, '.csv');
@@ -89,14 +95,15 @@ async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
         fs.createReadStream(csvPath)
             .pipe(csv())
             .on('headers', (headers: string[]) => {
-                // Log the headers
+                //log the headers
                 console.log('Headers:', headers);
 
-                // Create a table with the CSV headers as columns
+                //create a table with the CSV headers as columns
                 const columns = headers.map((header) => `"${header}" TEXT`).join(', ');
                 const createTableSQL = `CREATE TABLE "${tableName}" (${columns});`;
                 console.log('Create Table SQL:', createTableSQL);
-
+                
+                //run create db
                 db.run(createTableSQL, (err) => {
                     if (err) {
                         console.error('Error creating table:', err);
@@ -105,10 +112,10 @@ async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
                 });
             })
             .on('data', (row: any) => {
-                // Log each row
+                //log each row of data
                 console.log('Row:', row);
 
-                // Replace empty values with NULL
+                //replace empty values with NULL
                 const cleanedRow: any = {};
                 for (const [key, value] of Object.entries(row)) {
                     cleanedRow[key] = value === '' ? null : value;
@@ -116,15 +123,15 @@ async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
                 rows.push(cleanedRow);
             })
             .on('end', () => {
-                // Log the number of rows
+                //log the number of rows
                 console.log('Total rows:', rows.length);
 
                 if (rows.length === 0) {
-                    resolve(); // No rows to insert
+                    resolve(); //no rows to insert
                     return;
                 }
 
-                // Insert CSV data into the table
+                //insert CSV data into the table
                 const insertSQL = `INSERT INTO "${tableName}" VALUES (${Object.keys(rows[0])
                     .map(() => '?')
                     .join(', ')});`;
@@ -151,24 +158,30 @@ async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
             });
     });
 }
-// Helper function to create a database from an SQL script
-    async function createDBFromSQL(sqlPath: string, dbPath: string): Promise<void> {
-        const db = await createNewDatabase(dbPath);
-        const sqlScript = fs.readFileSync(sqlPath, 'utf8');
-
-        return new Promise((resolve, reject) => {
-            db.exec(sqlScript, (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
-    }
 
 /*
-Function creates a DB from a CSV file or SQL script.
+Create database from SQL file with create tables and insert statements.
+@Param: sqlPath, path for sql file, dbPath, filepath for database
+@Return: n/a void
+*/async function createDBFromSQL(sqlPath: string, dbPath: string): Promise<void> {
+    const db = await createNewDatabase(dbPath);
+    const sqlScript = fs.readFileSync(sqlPath, 'utf8');
+
+    return new Promise((resolve, reject) => {
+        db.exec(sqlScript, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+}
+
+/*
+Creates a database taking either a CSV or SQL file.
+@Return: Returns a sqlite3 database
+@exceptions: Throws when can't open a file or user doesn't select file
 */
 export async function createDB(): Promise<sqlite3.Database | null> {
     // Prompt the user to select a CSV or SQL file
@@ -193,6 +206,13 @@ export async function createDB(): Promise<sqlite3.Database | null> {
     const dbPath = dbUri.fsPath;
 
     try {
+        //delete the existing database file if it exists (before would run into errors when overwriting
+        //existing db to make new one w same name)
+        if (fs.existsSync(dbPath)) {
+            fs.unlinkSync(dbPath); //delet fieile
+            vscode.window.showInformationMessage(`Deleted existing database: ${path.basename(dbPath)}`);
+        }
+    
         if (fileExtension === '.csv') {
             await createDBFromCSV(filePath, dbPath);
             vscode.window.showInformationMessage(`Database created from CSV: ${path.basename(dbPath)}`);
@@ -203,11 +223,11 @@ export async function createDB(): Promise<sqlite3.Database | null> {
             vscode.window.showErrorMessage('Unsupported file type. Please select a CSV or SQL file.');
             return null;
         }
-
-        // Open the newly created database
+        //open the new db
         return await openDB(dbPath);
     } catch (err) {
         vscode.window.showErrorMessage(`Failed to create database ):`);
         return null;
     }
+
 }
