@@ -67,6 +67,7 @@ export async function runQueryTest(db: sqlite3.Database, query: string): Promise
     });
 }
 
+//prints table names and columns
 export async function printDBTableNames(db: sqlite3.Database) {
     const printDB = `SELECT name
                      FROM sqlite_master
@@ -74,10 +75,19 @@ export async function printDBTableNames(db: sqlite3.Database) {
                      AND name
                      NOT LIKE 'sqlite_%'`; // This is to exclude embeded sqlite tables
 
-    db.all(printDB, [], (err: any, names: any[]) => {
+    db.all(printDB, [], async (err: any, names: any[]) => {
         if (err) {
             vscode.window.showErrorMessage('Query error: ' + err.message);
         } else {
+            //fetch column names for each table
+            const tablesWithColumns = await Promise.all(
+                names.map(async (table) => {
+                    const columns = await getTableColumns(db, table.name);//get the column names yes
+                    return { ...table, columns };
+                })
+            );
+
+            //create the webview panel
             const panel = vscode.window.createWebviewPanel(
             'sqliteResults',
             'SQLite Query Results',
@@ -86,6 +96,7 @@ export async function printDBTableNames(db: sqlite3.Database) {
             // Really have to becareful since webview ~= iframes
             );
 
+            //generates tables webview
             panel.webview.html =
         `<html>
             <head>
@@ -96,10 +107,46 @@ export async function printDBTableNames(db: sqlite3.Database) {
                 </style>
             </head>
                 <body>
-                    <h2>DB Tables Names</h2>
-                        ${generateTableHTML(names)}
+                    <h2>Table and Column Names</h2>
+                        ${generateTableWithColumnsHTML(tablesWithColumns)}
                 </body>
             </html>`;
         }
     });
+}
+
+// Helper function to fetch column names for a table
+async function getTableColumns(db: sqlite3.Database, tableName: string): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+        const query = `PRAGMA table_info(${tableName})`; //one row per column
+        db.all(query, [], (err: any, rows: any[]) => { //for all rows in the table
+            if (err) {
+                reject(err);
+            } else {
+                const columns = rows.map((row) => row.name); //for each then just get the name from the query
+                resolve(columns);
+            }
+        });
+    });
+}
+
+//similar to view.ts but also its a list bcs . idk it looks better
+function generateTableWithColumnsHTML(tables: any[]): string {
+    if (tables.length === 0) {
+        return '<p>No tables found.</p>';
+    }
+
+    return tables
+        .map((table) => {
+            const columnsHTML = table.columns
+                .map((column: string) => `<li>${column}</li>`)
+                .join('');
+            return `
+                <div>
+                    <h3>Table: ${table.name}</h3>
+                    <ul>${columnsHTML}</ul>
+                </div>
+            `;
+        })
+        .join('');
 }
