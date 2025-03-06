@@ -43,12 +43,14 @@ Ensure you have the following installed:
 3. Vs Code
 
 #### Steps
-1. Run npm install
-2. Run npm install sqlite3
-3. Run npm run compile
-4. Run npm run test
-5. Once done, developing or adding anything new, press f5 and run vscode extension development
-6. Run any commands labeled with SeeQL: within the debugger command line to test
+
+1. cd seeql
+2. Run npm install
+3. Run npm install sqlite3
+4. Run npm run compile
+5. Run npm run test
+6. Once done, developing or adding anything new, press f5 and run vscode extension development
+7. Run any commands labeled with SeeQL: within the debugger command line to test
 
 ### How to add new tests
 Prerequisites:
