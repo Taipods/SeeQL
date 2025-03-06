@@ -18,14 +18,20 @@ All Source Code for this software lies inside Seeql/seeql/src.
 
 To build the software follow these steps
 
+### Prerequisites:
+1. Node.js
+2. VsCode
+3. Mocha should come with VsCode
+4. File System Access(if using own SQL files to test)
+
 ### Steps 
 
 1. Clone the SeeQL code from https://github.com/Taipods/SeeQL.git
-2. cd Seeql from terminal
+2. cd to inner seeql folder the folder with package.json
 3. Run npm install
 4. Run npm install sqlite3 (Run this just in case to avoid OS differeces error)
 5. Run npm run compile (Tentative: Had issues when this wasn't run haven't tested)
-6. Once done, developing or adding anything new, press f5 and run vscode extension debugger
+6. Once done, developing or adding anything new, press f5 on a .ts file and run vscode extension development(Other files may work, but just use .ts for full assurance).
 7. Run any commands labeled with SeeQL: within the debugger command line to test
 
 ## Testing:
@@ -41,7 +47,7 @@ Ensure you have the following installed:
 2. Run npm install sqlite3
 3. Run npm run compile
 4. Run npm run test
-5. Once done, developing or adding anything new, press f5 and run vscode extension debugger
+5. Once done, developing or adding anything new, press f5 and run vscode extension development
 6. Run any commands labeled with SeeQL: within the debugger command line to test
 
 ### How to add new tests
