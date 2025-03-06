@@ -3,7 +3,7 @@ Weekly Report
 
 **Submitted by** James, Samriddhi, Annika, Tai, Elio
 
-**Period** mm/dd/aaaa → mm/dd/aaaa
+**Period** 02/26/2025 → 03/5/2025
 
 Goals for This Week
 -------
@@ -43,6 +43,20 @@ Issues
 Individual Progress
 ----------
 ### James
+Progress:
+
+- Finally fixed up relationships in Create Diagrams
+- Added a table for the Create Diagrams and Relational Algebra
+- Fixed up the doc
+- Worked alongside team to finish review
+- Created Meetings and set up agendas
+- Documentation fixup
+
+Goals for next week:
+- Composite Keys still need to be fixed
+- Fix up any issues that were created in the SeeQL
+- Finalize for final presentation
+- Help Tai and team publish App. 
 
 ### Tai
 
@@ -93,3 +107,7 @@ Plans for next week
 Requests and proposals
 ----------------------
 > I want Ice Cream
+
+Questions
+--------------
+Now what? Do you think we've created something worthy of 6-7 weeks?
