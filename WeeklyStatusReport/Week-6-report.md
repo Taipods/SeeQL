@@ -74,6 +74,14 @@ Goals for next week:
 
 ### Elio
 
+Progress:
+- Conducted code reviews for ER
+- Fixed issues with the RA command (some syntaxes were not handled correctly)
+- Added test cases for RA
+
+Goals for next week:
+- Implement cloud database support
+
 ### Annika
 Progress:
 
