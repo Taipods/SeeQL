@@ -73,6 +73,15 @@ Goals for next week:
 - Update user guides and prep presentation 3/12
 
 ### Samriddhi
+Progress:
+- Successfully integrated AI query generation into the project
+- Developed a mock UI to test the AI query generation
+- Reviewed StudyScape
+
+Goals for next week:
+- Conduct code reviews and help with testing
+- Make sure the AI part is compatible with the UI and the database
+- Optimize the AI generation to reduce the time that it takes to process
 
 Plans for next week
 -------------------
