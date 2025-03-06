@@ -49,6 +49,16 @@ Individual Progress
 ### Elio
 
 ### Annika
+Progress:
+
+- Finished creating DB with SQL file - 3/3
+- Fixed duplicate name error with CSV and SQL files - 3/3
+- Changed DB preview display UI to include column names - 3/4
+
+Goals for next week:
+
+- Clean up documentation - 3/10
+- Update user guides and prep presentation 3/12
 
 ### Samriddhi
 
