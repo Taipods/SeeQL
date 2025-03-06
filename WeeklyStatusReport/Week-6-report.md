@@ -46,6 +46,18 @@ Individual Progress
 
 ### Tai
 
+Progress:
+
+- Finished UI clean up
+- Add Buttons to show column
+- Fix smaller things on docs
+
+Goals for next week:
+- Finish AI User input
+- Write the whole String for AI
+- Code Review assigned
+- Write Documentation
+
 ### Elio
 
 ### Annika
