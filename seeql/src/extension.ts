@@ -45,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('seeql.runQuery', async (query: string) => {
 			if (!db) {
-				vscode.window.showInformationMessage("Brother where my promised DB dawg");
+				vscode.window.showInformationMessage("Before running a query, please open a database. Run SeeQl: Open DB");
 				return;
 			}
 				// console.log("Query string:", query);
