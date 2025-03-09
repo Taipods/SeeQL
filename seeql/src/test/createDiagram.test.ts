@@ -216,9 +216,9 @@ suite('CreateDiagram: Create Table Tests/Parser', () => {
         });
     });
 
-    test('Parse Actual File:  dd', () => {
+    test('Parse Actual File:  compositeKeyManyToOne.sql', () => {
         const path = require('path');
-        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'compositeKey.sql');
+        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'compositeKeyManyToOne.sql');
         const sql = fs.readFileSync(filePath, 'utf8');
         const result = parseSQLForERDiagram(sql);
         assert.deepStrictEqual(result, {
@@ -249,9 +249,9 @@ suite('CreateDiagram: Create Table Tests/Parser', () => {
         });
     });
 
-    test('Parse Actual File:  2nd Test', () => {
+    test('Parse Actual File:  compositetestManytoMany.sql', () => {
         const path = require('path');
-        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'compositetest.sql');
+        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'compositetestManytoMany.sql');
         const sql = fs.readFileSync(filePath, 'utf8');
         const result = parseSQLForERDiagram(sql);
         assert.deepStrictEqual(result, {
