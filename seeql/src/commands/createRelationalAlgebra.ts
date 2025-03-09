@@ -1,43 +1,59 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { Parser as SqlParser } from 'node-sql-parser';
 
 /**
  * This function creates a relational algebra plan from a SQL file.
  */
 export async function createRelationalAlgebra() {
-    const fileUris = await vscode.window.showOpenDialog({
-        canSelectMany: true,
-        openLabel: 'Select SQL Files',
-        filters: { 'SQL Files': ['sql'] }
-    });
-    if (fileUris && fileUris.length > 0) {
-        vscode.window.showInformationMessage(`Selected files: ${fileUris.map(uri => uri.fsPath).join(', ')}`);
-        const fileContents = await Promise.all(
-            fileUris.map(async (uri) => {
-                const fileContent = await vscode.workspace.fs.readFile(uri);
-                return new TextDecoder("utf-8").decode(fileContent);
-            })
-        );
-
-        const filePanel = vscode.window.createWebviewPanel(
-            'fileContent',
-            'File Content',
-            vscode.ViewColumn.One,
-            { enableScripts: true }
-        );
-        const createRelationalAlgebra = vscode.window.createWebviewPanel(
-            'relationalAlgebra',
-            'Relational Algebra',
-            vscode.ViewColumn.Two,
-            { enableScripts: true }
-        );
-
-        const ast = new SqlParser().astify(fileContents.join('\n\n'));
-        filePanel.webview.html = showTableNames(fileContents);
-        createRelationalAlgebra.webview.html = showRelationalAlgebra(ast);
-    } else {
-        vscode.window.showInformationMessage('No files selected.');
+    // Use VS Code's built-in quick pick to select SQL files
+    const files = await vscode.workspace.findFiles('**/*.sql', '**/node_modules/**');
+    if (!files.length) {
+        vscode.window.showInformationMessage('No SQL files found in workspace.');
+        return;
     }
+
+    const fileUris = await vscode.window.showQuickPick(
+        files.map(file => ({
+            label: `$(database) ${path.basename(file.fsPath)}`, // Adds a file icon
+            description: file.fsPath, 
+            uri: file
+        })),
+        {
+            canPickMany: false,
+            placeHolder: 'Select SQL Files for visualization'
+        }
+    );
+
+    if (!fileUris) {
+        vscode.window.showInformationMessage('No files selected.');
+        return;
+    }
+
+    vscode.window.showInformationMessage(`Selected file: ${fileUris.description}`);
+
+    // Read the content of the selected files
+    const fileContent = await vscode.workspace.fs.readFile(fileUris.uri);
+    const fileContents = [`File: ${fileUris.description}\n\n${fileContent.toString()}`];
+    
+    const filePanel = vscode.window.createWebviewPanel(
+        'fileContent',
+        'File Content',
+        vscode.ViewColumn.One,
+        { enableScripts: true }
+    );
+
+    const createRelationalAlgebra = vscode.window.createWebviewPanel(
+        'relationalAlgebra',
+        'Relational Algebra',
+        vscode.ViewColumn.Two,
+        { enableScripts: true }
+    );
+
+    const sqlContent = fileContent.toString();
+    const ast = new SqlParser().astify(sqlContent);
+    filePanel.webview.html = showTableNames(fileContents);
+    createRelationalAlgebra.webview.html = showRelationalAlgebra(ast);
 }
 
 /**
