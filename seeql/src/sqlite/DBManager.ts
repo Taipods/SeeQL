@@ -10,8 +10,6 @@ import { printDBTableNames } from './RunQuery';
 
 
 /*
-TODO: Return WebView of the Table, Close DB when user Wants new DB to be
-opened
 This function Pulls a .DB file for future call to Run SQL querry
 @Param: Requires a callback ish varible to store DB object
 @Return: Returns a DB object for use
@@ -71,10 +69,9 @@ function createNewDatabase(dbPath: string): Promise<sqlite3.Database> {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath, (err) => { //make new sqlite3 database
             if (err) {
-                console.log("bro please");
+                console.log("Error in creating SQL database: ", err);
                 reject(err);
             } else {
-                console.log("easy");
                 resolve(db);
             }
         });
@@ -163,7 +160,8 @@ async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
 Create database from SQL file with create tables and insert statements.
 @Param: sqlPath, path for sql file, dbPath, filepath for database
 @Return: n/a void
-*/async function createDBFromSQL(sqlPath: string, dbPath: string): Promise<void> {
+*/
+async function createDBFromSQL(sqlPath: string, dbPath: string): Promise<void> {
     const db = await createNewDatabase(dbPath);
     const sqlScript = fs.readFileSync(sqlPath, 'utf8');
 
@@ -184,7 +182,7 @@ Creates a database taking either a CSV or SQL file.
 @exceptions: Throws when can't open a file or user doesn't select file
 */
 export async function createDB(): Promise<sqlite3.Database | null> {
-    // Prompt the user to select a CSV or SQL file
+    //prompt the user to select a CSV or SQL file
     const uri = await vscode.window.showOpenDialog({
         filters: { 'CSV Files': ['csv'], 'SQL Files': ['sql'] },
     });
@@ -195,7 +193,7 @@ export async function createDB(): Promise<sqlite3.Database | null> {
     const filePath = uri[0].fsPath;
     const fileExtension = path.extname(filePath).toLowerCase();
 
-    // Prompt the user to specify the output database path
+    //prompt the user to specify the output database path
     const dbUri = await vscode.window.showSaveDialog({
         filters: { 'Database Files': ['db'] },
         defaultUri: vscode.Uri.file(path.join(path.dirname(filePath), 'new_database.db')),
@@ -209,7 +207,7 @@ export async function createDB(): Promise<sqlite3.Database | null> {
         //delete the existing database file if it exists (before would run into errors when overwriting
         //existing db to make new one w same name)
         if (fs.existsSync(dbPath)) {
-            fs.unlinkSync(dbPath); //delet fieile
+            fs.unlinkSync(dbPath); //delete file
             vscode.window.showInformationMessage(`Deleted existing database: ${path.basename(dbPath)}`);
         }
     
