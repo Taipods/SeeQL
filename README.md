@@ -89,9 +89,7 @@ Steps:
 ![Alt text](seeql/media/Images/Step2.png)
 
 3. Select any single one command line
-4. Choose a related SeeQl file to that command line
-
-![Alt text](seeql/media/Images/Step3.png)
+4. Choose a related SeeQl file to that command line. Refer to command lines below for reference of that 
 
 5. Once selected, visualization of that SQL file should be up whether Er Diagram, Relational Algebra, etc.
 
@@ -103,7 +101,7 @@ Steps:
 
 ![OpenDb](https://github.com/user-attachments/assets/d2f46ef4-ebaf-448b-a850-346abb6017bd)
 
-### RunQuerry:
+### RunQuery:
 - Requires a DB to be opened by OpenDB command
 - Requires user to write a sql statment inside sql file
 - On click run querry, table appear with stats
@@ -111,14 +109,16 @@ Steps:
 ![Untitled design](https://github.com/user-attachments/assets/101095d3-358a-4217-9bb0-637da8ddb78f)
 
 ### CreateERDiagram
-- Creates a E/R diagram given a sql file with valid querry
+- Creates a E/R diagram given a sql file with valid query
+- Before running command, have valid folder open in vscode file explorer holding related SQL Create Tables
 
-![Er](https://github.com/user-attachments/assets/2d6bdae5-aef5-4c68-a659-32790cfab2ff)
+![createDiagramGif](https://github.com/user-attachments/assets/674be4a7-305c-4499-a3ee-695c7a286195)
 
-### CreateRelationAlgebra
-- Creates a relation algerbra diagram given a sql file with valid querry
+### CreateRelationalAlgebra
+- Creates a relation algerbra diagram given a sql file with valid query
+- Before running command, have valid folder open in vscode file explorer holding related SQL Queries
 
-  ![RAdemo](https://github.com/user-attachments/assets/15590a33-5a54-40d3-88a6-8263a9ae510b)
+ ![createRelationalGif](https://github.com/user-attachments/assets/7c0076b4-a387-45b0-84af-c292c827d48d)
 
 
 ## Release Notes
