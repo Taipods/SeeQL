@@ -33,38 +33,61 @@ Individual Progress
 -----------
 ## James
 Progress
-
+- Set up Jira
+- Presented Beta with team
+- Set up meetings for the whole week
+- Assigned new tasks past beta
+- Finshing up code on P0 for Create Er Diagram
   
 Goals for Next week
+- Finish up Create Er Diagram
+- Set up meetings agenda
+- Get ready for final pushes towards project
 
 
 ## Tai
 Progress
-
+- Fully Intergrated Buttons for queries
+- Start talks about implmentation detail for ai implmentations
+- Finishing Up UI parts for the results of query
+- Beta With team and user & dev guides
 
 Goals for Next week
-
+- Finish Up UI parts
+- Impleament responsible parts for AI
 
 ## Elio
 Progress
-
+- Refined the RA command to support more general SQL queries
+- Added additional unit tests for the RA command
   
 Goals for Next week
-
+- Finalize the ER and RA features
+- Start work on another feature
 
 ## Annika
 
 Progress:
 
-  
+- Discuss on planned reimplementation for faulty create DB - 2/24
+- Implemented creating new empty db with sqlite - 2/24
+- Beta presentation with team - 2/20
+
 Goals for next week:
 
+- Fix parsing for createDB - 3/3
+- Write unit tests for creating database - 3/3
 
 ## Samriddhi
 Progress:
-
+- Worked on the beta presentation with the team
+- Discussed how to integrate AI into the project
+- Researched methods for generating SQL queries from user prompts
 
 Goals for next week:
+- Implement AI integration to generate SQL queries based on user input
+- Make sure the AI model interacts with the database
+- Write test cases for AI-generated queries
 
 
 Plans for next week
@@ -93,4 +116,4 @@ Question For TA:
 ----------------------
 > How was your day?
 
-> Do you think Batman could be real? If he was?
+> What now? If we are finished, at this point with P0 and P1 goals. Do we just hit our stretch goals till the final presentation?

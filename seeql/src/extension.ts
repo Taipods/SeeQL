@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
 import * as sqlite3 from 'sqlite3';
 import { createDiagram } from './commands/createDiagram';
 import { createRelationalAlgebra } from './commands/createRelationalAlgebra';
-import { pullDB } from './sqlite/DBManager';
+import { openDB, pullDB, createDB } from './sqlite/DBManager';
 import {runQuery } from './sqlite/RunQuery';
 import { SQLCodeLensProvider } from './sqlite/SQLCodeLensProvider';
 import { openSQLQueryPanel } from './commands/generateSQLQuery';
@@ -41,12 +41,23 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 			})
 		);
+
+	// create db from csv and sql
+	context.subscriptions.push(
+		vscode.commands.registerCommand('seeql.createDB', async () => {
+			db = await createDB();
+			// Seems like it's not posting the message
+			if (db !== null) {
+				vscode.window.showInformationMessage("plzsplsplzlzplpzlz");
+				}
+			})
+		);
 	// All the error handling is done inside the call to the wrapper
 	// Gonna replace with another call on push button or something
 	context.subscriptions.push(
 		vscode.commands.registerCommand('seeql.runQuery', async (query: string) => {
 			if (!db) {
-				vscode.window.showInformationMessage("Brother where my promised DB dawg");
+				vscode.window.showInformationMessage("Before running a query, please open a database. Run SeeQl: Open DB");
 				return;
 			}
 				// console.log("Query string:", query);

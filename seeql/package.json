@@ -30,8 +30,13 @@
         "title": "SeeQL: Run SQL Query"
       },
       {
+
         "command": "seeql.generateSQLQuery",
         "title": "SeeQL: General SQL Query"
+
+        "command": "seeql.createDB",
+        "title": "SeeQL: Create Database From CSV/SQL File"
+
       }
     ]
   },
@@ -55,8 +60,10 @@
   "dependencies": {
     "@vscode/test-electron": "^2.4.1",
     "axios": "^1.8.1",
+    "csv-parser": "^3.2.0",
     "eslint": "^9.16.0",
     "mermaid": "^11.4.1",
+    "node": "^18.20.7",
     "node-sql-parser": "^5.3.6",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
