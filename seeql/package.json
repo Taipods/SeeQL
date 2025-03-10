@@ -28,6 +28,10 @@
       {
         "command": "seeql.runQuery",
         "title": "SeeQL: Run SQL Query"
+      },
+      {
+        "command": "seeql.generateSQLQuery",
+        "title": "SeeQL: General SQL Query"
       }
     ]
   },

@@ -7,6 +7,7 @@ import { createRelationalAlgebra } from './commands/createRelationalAlgebra';
 import { pullDB } from './sqlite/DBManager';
 import {runQuery } from './sqlite/RunQuery';
 import { SQLCodeLensProvider } from './sqlite/SQLCodeLensProvider';
+import { openSQLQueryPanel } from './commands/generateSQLQuery';
 
 // So this is the DB that stores multiple tables insides (collections of tables)
 export let db: sqlite3.Database | null = null; // constant for DB
@@ -57,6 +58,13 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         vscode.languages.registerCodeLensProvider({ language: "sql" }, new SQLCodeLensProvider())
     );
+
+	// Open SQL Query Generator Panel
+	context.subscriptions.push(
+		vscode.commands.registerCommand("seeql.generateSQLQuery", () => {
+			openSQLQueryPanel(); // Opens the webview panel (no need to await or return anything)
+		})
+	);
 }
 
 
