@@ -39,7 +39,7 @@ export async function pullDB(): Promise<sqlite3.Database | null> {
 /*
 Open Database Given the path of the database
 This function Pulls a .DB file given a filepath
-@param: String dbPath 
+@param: String dbPath
 @return: Returns a sqlite3 database
 */
 export async function openDB(dbPath: string): Promise<sqlite3.Database | null> {
@@ -81,7 +81,7 @@ function createNewDatabase(dbPath: string): Promise<sqlite3.Database> {
 /*
 Creates a database file from a CSV file, parsing the information into table(s).
 @Param: csvPath, path of csv file, dbPath, path of db file in string.
-@Return: N/a 
+@Return: N/a
 */
 async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
     const db = await createNewDatabase(dbPath);
@@ -99,7 +99,7 @@ async function createDBFromCSV(csvPath: string, dbPath: string): Promise<void> {
                 const columns = headers.map((header) => `"${header}" TEXT`).join(', ');
                 const createTableSQL = `CREATE TABLE "${tableName}" (${columns});`;
                 console.log('Create Table SQL:', createTableSQL);
-                
+
                 //run create db
                 db.run(createTableSQL, (err) => {
                     if (err) {
@@ -210,7 +210,7 @@ export async function createDB(): Promise<sqlite3.Database | null> {
             fs.unlinkSync(dbPath); //delete file
             vscode.window.showInformationMessage(`Deleted existing database: ${path.basename(dbPath)}`);
         }
-    
+
         if (fileExtension === '.csv') {
             await createDBFromCSV(filePath, dbPath);
             vscode.window.showInformationMessage(`Database created from CSV: ${path.basename(dbPath)}`);
