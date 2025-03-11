@@ -28,10 +28,6 @@
       {
         "command": "seeql.openDb",
         "title": "SeeQL: Open Database"
-      },
-      {
-        "command": "seeql.runQuery",
-        "title": "SeeQL: Run SQL Query"
       }
     ]
   },

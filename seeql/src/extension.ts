@@ -71,7 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
 			try {
 				if (target === "local") {
 					if (!db) {
-						vscode.window.showInformationMessage("Brother where my promised DB dawg");
+						vscode.window.showInformationMessage("No open local database.");
 						return;
 					}
 					runQuery(db, query);
