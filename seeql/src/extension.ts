@@ -33,14 +33,15 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Updates/Pull DB from File
 	context.subscriptions.push(
-			vscode.commands.registerCommand('seeql.openDb', async () => {
-				db = await pullDB();
-				// Seems like it's not posting the message
-				if (db !== null) {
-					vscode.window.showInformationMessage("Open sesame");
-				}
-			})
-		);
+		vscode.commands.registerCommand('seeql.openDb', async () => {
+			const result = await pullDB();
+			db = result ? result.db : null; // Extract db property
+	
+			if (db !== null) {
+				vscode.window.showInformationMessage("Open sesame");
+			}
+		})
+	);
 
 	// create db from csv and sql
 	context.subscriptions.push(
