@@ -4,8 +4,8 @@ CREATE TABLE Cars (
 );
 
 CREATE TABLE CarOwnership (
-    vin VARCHAR(20),  -- FK but part of composite PK
+    vin VARCHAR(20),
     owner_id INT,
-    PRIMARY KEY (vin, owner_id),  -- Composite PK
+    PRIMARY KEY (vin, owner_id), 
     FOREIGN KEY (vin) REFERENCES Cars(vin)
 );

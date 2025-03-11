@@ -25,12 +25,13 @@ To build the software follow these steps
 4. File System Access(if using own SQL files to test)
 
 ### Steps 
+Extra Step: If using windows to fully ensure, it properly works. Have gitbash and run npm install and npm install sqlite3. This is to ensure it's installed properly. Unless you have node.js and npm installed properly into your system already.
 
 1. Clone the SeeQL code from https://github.com/Taipods/SeeQL.git
 2. cd to inner seeql folder the folder with package.json
 3. Run npm install
 4. Run npm install sqlite3 (Run this just in case to avoid OS differeces error)
-5. Run npm run compile (Tentative: Had issues when this wasn't run haven't tested)
+5. Run npm run compile
 6. Once done, developing or adding anything new, press f5 on a .ts file and run vscode extension development(Other files may work, but just use .ts for full assurance).
 7. Run any commands labeled with SeeQL: within the debugger command line to test
 

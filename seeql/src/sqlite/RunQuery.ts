@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import * as sqlite3 from 'sqlite3';
 import { queryResWebView, tableResWebView } from './DBwebview/view';
 
+export let dbStructure: string = "";
+
 /*
 Called when a button is pressed in a SQL File. takes the file and the database currently open
 and runs the query, error if invalid in any way, displays the results in a table with row/col count
@@ -74,6 +76,10 @@ export async function printDBTableNames(db: sqlite3.Database) {
             );
 
             panel.webview.html = tableResWebView(names);
+            // For the AI to understand the database structure,
+            // we need to print out the structure of the database
+            dbStructure = await getDBStructure(db, names);
+            // console.log(dbStructure); // Log the database structure
 
             panel.webview.onDidReceiveMessage(async message => {
                 if (message.command === 'showTableColumns') {
@@ -82,9 +88,9 @@ export async function printDBTableNames(db: sqlite3.Database) {
                     if (!columns || columns.length === 0) {
                         columnsHTML = '<tr><td>No columns found.</td></tr>';
                     } else {
-                        columnsHTML = columns.map(column => `<tr><td>${column.name}</td></tr>`).join('');
+                        columnsHTML = columns.map(column => `<tr><td>${column.name} (${column.type})</td></tr>`).join('');
                     }
-                    panel.webview.postMessage({ command: 'displayColumns', html: `<table><tr><th>Column Name</th></tr>${columnsHTML}</table>` });
+                    panel.webview.postMessage({ command: 'displayColumns', html: `<table><tr><th>Column Name (Type)</th></tr>${columnsHTML}</table>` });
                 }
             });
         }
@@ -92,7 +98,7 @@ export async function printDBTableNames(db: sqlite3.Database) {
 }
 
 // This is a helper function to print out the columns of a table
-function printTableColumns(db: sqlite3.Database, name: string): Promise<{ name: string }[]> {
+function printTableColumns(db: sqlite3.Database, name: string): Promise<{ name: string, type: string }[]> {
     return new Promise((resolve, reject) => {
         const sqlStatement = `PRAGMA table_info(${name})`; // Prints out the columns of the table
         db.all(sqlStatement, [], (err: any, columns: any[]) => {
@@ -104,4 +110,24 @@ function printTableColumns(db: sqlite3.Database, name: string): Promise<{ name: 
             }
         });
     });
+}
+
+// This function is used to print out the structure of the database for the AI
+// @param: db - the database object
+// @return: a string representing the structure of the database
+async function getDBStructure(db: sqlite3.Database, tables: { name: string }[]): Promise<string> {
+    let dbStructure = "DB {";
+
+    for (const table of tables) {
+        const columns = await printTableColumns(db, table.name);
+        dbStructure += `\n  Table ${table.name} {`;
+        for (const column of columns) {
+            dbStructure += `\n    ${column.name} (${column.type})`;
+        }
+        dbStructure += `\n  }`;
+    }
+
+    dbStructure += `\n}`;
+
+    return dbStructure;
 }

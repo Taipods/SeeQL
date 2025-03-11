@@ -111,6 +111,7 @@ Steps:
 ### CreateERDiagram
 - Creates a E/R diagram given a sql file with valid query
 - Before running command, have valid folder open in vscode file explorer holding related SQL Create Tables
+- DISCLAIMER: DO NOT PUT INLINE COMMENTS IN SQL STATEMENTS. Due to custom SQL parser for this, we cannot have inline comments for this or any sort of comments. Keep it as barebones as possible.
 
 ![createDiagramGif](https://github.com/user-attachments/assets/674be4a7-305c-4499-a3ee-695c7a286195)
 
