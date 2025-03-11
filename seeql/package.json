@@ -14,6 +14,10 @@
   "contributes": {
     "commands": [
       {
+        "command": "seeql.connectCloud",
+        "title": "SeeQL: Connect to Cloud Database"
+      },
+      {
         "command": "seeql.createDiagram",
         "title": "SeeQL: Create a Diagram of a Create SQL Statement"
       },
@@ -49,7 +53,9 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
+    "@types/mssql": "^9.1.7",
     "@types/node": "^20.17.19",
+    "@types/tedious": "^4.0.14",
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
@@ -63,6 +69,7 @@
     "csv-parser": "^3.2.0",
     "eslint": "^9.16.0",
     "mermaid": "^11.4.1",
+    "mssql": "^9.3.2",
     "node": "^18.20.7",
     "node-sql-parser": "^5.3.6",
     "sqlite": "^5.1.1",

@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as sqlite3 from 'sqlite3';
 import { queryResWebView, tableResWebView } from './DBwebview/view';
 
-let dbStructure = null;
+export let dbStructure: string = "";
 
 /*
 Called when a button is pressed in a SQL File. takes the file and the database currently open
