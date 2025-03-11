@@ -4,11 +4,12 @@ import * as vscode from 'vscode';
 import * as sqlite3 from 'sqlite3';
 import { createDiagram } from './commands/createDiagram';
 import { createRelationalAlgebra } from './commands/createRelationalAlgebra';
-import { pullDB } from './sqlite/DBManager';
+import { openDB, pullDB, createDB } from './sqlite/DBManager';
 import {runQuery } from './sqlite/RunQuery';
 import { SQLCodeLensProvider } from './sqlite/SQLCodeLensProvider';
 import { AzureDBConfig, CloudDBManager } from './cloudDB/CloudDBManager';
 import { generateTableHTML } from './sqlite/DBwebview/view';
+import { openSQLQueryPanel } from './commands/generateSQLQuery';
 
 // So this is the DB that stores multiple tables insides (collections of tables)
 export let db: sqlite3.Database | null = null; // constant for DB
@@ -42,6 +43,17 @@ export function activate(context: vscode.ExtensionContext) {
 				// Seems like it's not posting the message
 				if (db !== null) {
 					vscode.window.showInformationMessage("Open sesame");
+				}
+			})
+		);
+
+	// create db from csv and sql
+	context.subscriptions.push(
+		vscode.commands.registerCommand('seeql.createDB', async () => {
+			db = await createDB();
+			// Seems like it's not posting the message
+			if (db !== null) {
+				vscode.window.showInformationMessage("plzsplsplzlzplpzlz");
 				}
 			})
 		);
@@ -129,6 +141,13 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         vscode.languages.registerCodeLensProvider({ language: "sql" }, new SQLCodeLensProvider())
     );
+
+	// Open SQL Query Generator Panel
+	context.subscriptions.push(
+		vscode.commands.registerCommand("seeql.generateSQLQuery", () => {
+			openSQLQueryPanel(); // Opens the webview panel (no need to await or return anything)
+		})
+	);
 
 	// Command to connect to a cloud database.
 	let connectCloudDisposable = vscode.commands.registerCommand('seeql.connectCloud', async () => {

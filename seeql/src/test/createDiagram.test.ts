@@ -215,4 +215,87 @@ suite('CreateDiagram: Create Table Tests/Parser', () => {
             }]
         });
     });
+
+    test('Parse Actual File:  compositeKeyManyToOne.sql', () => {
+        const path = require('path');
+        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'compositeKeyManyToOne.sql');
+        const sql = fs.readFileSync(filePath, 'utf8');
+        const result = parseSQLForERDiagram(sql);
+        assert.deepStrictEqual(result, {
+            tables: [
+                {
+                    name: 'Cars',
+                    columns: [
+                        { name: 'vin', type: 'VARCHAR(20)', constraints: undefined },
+                        { name: 'model', type: 'VARCHAR(50)', constraints: undefined },
+                    ],
+                    primaryKey: ['vin'],
+                    foreignKeys: []
+                },
+                {
+                    name: 'CarOwnership',
+                    columns: [
+                        { name: 'vin', type: 'VARCHAR(20)', constraints: undefined },
+                        { name: 'owner_id', type: 'INT', constraints: undefined },
+                    ],
+                    primaryKey: ['vin', 'owner_id'],
+                    foreignKeys: [{
+                        columns: ['vin'],
+                        referencesColumns: ['vin'],
+                        referencesTable: 'Cars'
+                    }]
+                }
+            ]
+        });
+    });
+
+    test('Parse Actual File:  compositetestManytoMany.sql', () => {
+        const path = require('path');
+        const filePath = path.resolve(__dirname, '..', '..', '..', 'seeql', 'src', 'test', 'sql_test_files', 'createDiagramFolder', 'compositetestManytoMany.sql');
+        const sql = fs.readFileSync(filePath, 'utf8');
+        const result = parseSQLForERDiagram(sql);
+        assert.deepStrictEqual(result, {
+            tables: [
+                {
+                    name: 'Employees',
+                    columns: [
+                        { name: 'employee_id', type: 'INT', constraints: undefined },
+                        { name: 'name', type: 'VARCHAR(100)', constraints: undefined },
+                    ],
+                    primaryKey: ['employee_id'],
+                    foreignKeys: []
+                },
+                {
+                    name: 'Projects',
+                    columns: [
+                        { name: 'project_id', type: 'INT', constraints: undefined },
+                        { name: 'name', type: 'VARCHAR(100)', constraints: undefined },
+                    ],
+                    primaryKey: ['project_id'],
+                    foreignKeys: []
+                },
+                {
+                    name: 'EmployeeProjects',
+                    columns: [
+                        { name: 'employee_id', type: 'INT', constraints: undefined },
+                        { name: 'project_id', type: 'INT', constraints: undefined },
+                        { name: 'role', type: 'VARCHAR(50)', constraints: undefined }
+                    ],
+                    primaryKey: ['employee_id', 'project_id'],
+                    foreignKeys: [
+                        {
+                            columns: ['employee_id'],
+                            referencesColumns: ['employee_id'],
+                            referencesTable: 'Employees'
+                        },
+                        {
+                            columns: ['project_id'],
+                            referencesColumns: ['project_id'],
+                            referencesTable: 'Projects'
+                        }
+                    ]
+                }
+            ]
+        });
+    });
 });

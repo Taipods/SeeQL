@@ -8,8 +8,6 @@ import { parseSQLForERDiagram, ERDiagram } from '../parser/sqlParser';
  * @returns: 
  */
 export async function createDiagram(context: vscode.ExtensionContext) {
-    let SQLfilePath = '';
-
     // Use VS Code's built-in quick pick to select SQL files
     const files = await vscode.workspace.findFiles('**/*.sql', '**/node_modules/**');
     if (!files.length) {

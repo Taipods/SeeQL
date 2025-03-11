@@ -3,7 +3,7 @@ Weekly Report
 
 **Submitted by** James, Samriddhi, Annika, Tai, Elio
 
-**Period** mm/dd/aaaa → mm/dd/aaaa
+**Period** 02/26/2025 → 03/5/2025
 
 Goals for This Week
 -------
@@ -43,14 +43,67 @@ Issues
 Individual Progress
 ----------
 ### James
+Progress:
+
+- Finally fixed up relationships in Create Diagrams
+- Added a table for the Create Diagrams and Relational Algebra
+- Fixed up the doc
+- Worked alongside team to finish review
+- Created Meetings and set up agendas
+- Documentation fixup
+
+Goals for next week:
+- Composite Keys still need to be fixed
+- Fix up any issues that were created in the SeeQL
+- Finalize for final presentation
+- Help Tai and team publish App. 
 
 ### Tai
 
+Progress:
+
+- Finished UI clean up
+- Add Buttons to show column
+- Fix smaller things on docs
+
+Goals for next week:
+- Finish AI User input
+- Write the whole String for AI
+- Code Review assigned
+- Write Documentation
+
 ### Elio
 
+Progress:
+- Conducted code reviews for ER
+- Fixed issues with the RA command (some syntaxes were not handled correctly)
+- Added test cases for RA
+
+Goals for next week:
+- Implement cloud database support
+
 ### Annika
+Progress:
+
+- Finished creating DB with SQL file - 3/3
+- Fixed duplicate name error with CSV and SQL files - 3/3
+- Changed DB preview display UI to include column names - 3/4
+
+Goals for next week:
+
+- Clean up documentation - 3/10
+- Update user guides and prep presentation 3/12
 
 ### Samriddhi
+Progress:
+- Successfully integrated AI query generation into the project
+- Developed a mock UI to test the AI query generation
+- Reviewed StudyScape
+
+Goals for next week:
+- Conduct code reviews and help with testing
+- Make sure the AI part is compatible with the UI and the database
+- Optimize the AI generation to reduce the time that it takes to process
 
 Plans for next week
 -------------------
@@ -62,3 +115,7 @@ Plans for next week
 Requests and proposals
 ----------------------
 > I want Ice Cream
+
+Questions
+--------------
+Now what? Do you think we've created something worthy of 6-7 weeks?
