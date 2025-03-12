@@ -74,5 +74,9 @@
     "sqlite3": "^5.1.7",
     "type-fest": "^4.33.0",
     "typescript": "^5.7.2"
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/Taipods/SeeQL"
   }
 }
