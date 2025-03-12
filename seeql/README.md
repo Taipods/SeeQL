@@ -36,8 +36,8 @@ N/A
 
 ## Known Issues
 
-*Using Create DB twice on the same CSV Causes empty DB*
-*database structure visulizer tabs duplicates columns name if table is empty*
+- *Using Create DB twice on the same CSV Causes empty DB*
+- *database structure visulizer tabs duplicates columns name if table is empty*
 
 ## Release Notes
 
