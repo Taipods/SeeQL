@@ -2,14 +2,14 @@ import * as vscode from 'vscode';
 import { Mistral } from '@mistralai/mistralai';
 import { dbStructure } from '../sqlite/RunQuery';
 // Retrieve API Key from VS Code settings
-const apiKey = vscode.workspace.getConfiguration('sqlQueryGenerator').get<string>('mistralApiKey') || "";
-
+// const apiKey = vscode.workspace.getConfiguration('sqlQueryGenerator').get<string>('mistralApiKey') || "";
+/*
 if (!apiKey) {
     vscode.window.showErrorMessage("Mistral API key is missing! Please add it in settings.json.");
 }
-
+*/
 // Initialize Mistral API client
-const client = new Mistral({ apiKey });
+const client = new Mistral({ apiKey: process.env.APIKEY });
 
 /**
  * Function to create a VS Code Webview panel for user input and AI-generated SQL queries.
