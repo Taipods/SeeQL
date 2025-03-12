@@ -127,8 +127,16 @@ Steps:
 - Allows direct execution by pasting the generated query into an SQL file and running it
   
 ### Connect to CloudBase
+- Connect to Azure
+- Enter your Azure SQL Server
+- Enter Azure SQL Username
+- Enter password
+- Enter Azure SQL Database Name
 
 ### Create Database from CSV/SQL File
+- Select a CSV File
+- Then rename the db file and that's it
+
 
 ### 
 ## Release Notes
