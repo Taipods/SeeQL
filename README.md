@@ -13,7 +13,7 @@ SQL, at times, feels very difficult to work with. We want our extension to make 
 		* Inside seeql - > src contains our main files for our extension including our tests.
 		* Weekly Status report self explanatory
 ## Features
--Upload data (CSV) that creates a new Database file through a Create Table Statement
+-Upload data (CSV or SQL file) that creates a new Database file through a Create Table Statement
 
 -Output an SQL Query after pressing a button, and implementing a db
 
@@ -96,7 +96,7 @@ Steps:
 ![Alt text](seeql/media/Images/Step4.png)
 ## Specific commands demo
 ### OpenDB:
-- Opens a .db file to run querries
+- Opens a .db file to run queries
 - On success, prompts button left with open DB
 
 ![OpenDb](https://github.com/user-attachments/assets/d2f46ef4-ebaf-448b-a850-346abb6017bd)
