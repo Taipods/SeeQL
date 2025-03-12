@@ -132,12 +132,16 @@ Steps:
 - Select a CSV File
 - Then rename the db file and that's it
 
+![createdb](https://github.com/user-attachments/assets/0ee96726-3479-4da7-862e-758db493f97f)
+
 ### GenerateSQLQuery (WIP + Dev excluseive for time being)
 - *Requires you to get api key from https://mistral.ai/*
 - requires api key to be put inside of .env
 - Generates SQL queries based on a user-provided natural language description
 - Analyzes the connected database's schema to generate context-aware SQL queries
 - Allows direct execution by pasting the generated query into an SQL file and running it
+  
+![Ai](https://github.com/user-attachments/assets/b33daaca-a689-4699-aadf-7d074d2bd5d3)
 
 ### 
 ## Release Notes
