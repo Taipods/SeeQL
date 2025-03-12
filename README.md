@@ -121,11 +121,6 @@ Steps:
 
  ![createRelationalGif](https://github.com/user-attachments/assets/7c0076b4-a387-45b0-84af-c292c827d48d)
 
-### GenerateSQLQuery
-- Generates SQL queries based on a user-provided natural language description
-- Analyzes the connected database's schema to generate context-aware SQL queries
-- Allows direct execution by pasting the generated query into an SQL file and running it
-  
 ### Connect to CloudBase
 - Connect to Azure
 - Enter your Azure SQL Server
@@ -137,6 +132,12 @@ Steps:
 - Select a CSV File
 - Then rename the db file and that's it
 
+### GenerateSQLQuery (WIP + Dev excluseive for time being)
+- *Requires you to get api key from https://mistral.ai/*
+- requires api key to be put inside of .env
+- Generates SQL queries based on a user-provided natural language description
+- Analyzes the connected database's schema to generate context-aware SQL queries
+- Allows direct execution by pasting the generated query into an SQL file and running it
 
 ### 
 ## Release Notes
