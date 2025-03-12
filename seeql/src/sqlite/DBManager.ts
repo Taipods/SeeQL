@@ -8,8 +8,6 @@ import { printDBTableNames } from './RunQuery';
 // This file is used to for async functions used for pulling .DB files
 // And or using a create table statement on a CSV
 
-// Stores the database file path separately
-let selectedDatabasePath: string | null = null;
 
 /*
 This function Pulls a .DB file for future call to Run SQL querry
@@ -18,7 +16,7 @@ This function Pulls a .DB file for future call to Run SQL querry
 @exceptions: Throws when can't open a file or user doesn't select file
 *possibly have to fixed amount of file selet or inform user first file selected
 */
-export async function pullDB(): Promise<{ db: sqlite3.Database, path: string } | null> {
+export async function pullDB(): Promise<sqlite3.Database | null> {
   // This ask for a db file from ur directory stores the object inside uri
   const uri = await vscode.window.showOpenDialog({ filters: { 'Database Files': ['db'] } });
   // Checks if uri array is empty or not (aka if user select or not)
@@ -32,17 +30,9 @@ export async function pullDB(): Promise<{ db: sqlite3.Database, path: string } |
   // Run querry which will print out the table using a simple
   // SELECT * FROM DB
   const dbPath = uri[0].fsPath;
-  selectedDatabasePath = dbPath;
 
-
-
-  // Open the database
-    const db = await openDB(dbPath);
-    if (!db) {
-        return null;
-    }
-
-    return { db, path: dbPath };
+  // call openDb to open it
+  return openDB(dbPath);
 }
 
 
