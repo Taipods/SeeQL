@@ -116,7 +116,7 @@ Steps:
 ![ergif](https://github.com/user-attachments/assets/96c9693a-c864-4f7a-8f70-48595e57d67f)
 
 ### CreateRelationalAlgebra
-- Creates a relation algerbra diagram given a sql file with valid query
+- Creates a relatioal algerbra diagram given a sql file with valid query
 - Before running command, have valid folder open in vscode file explorer holding related SQL Queries
 
  ![createRelationalGif](https://github.com/user-attachments/assets/7c0076b4-a387-45b0-84af-c292c827d48d)
@@ -125,7 +125,12 @@ Steps:
 - Generates SQL queries based on a user-provided natural language description
 - Analyzes the connected database's schema to generate context-aware SQL queries
 - Allows direct execution by pasting the generated query into an SQL file and running it
+  
+### Connect to CloudBase
 
+### Create Database from CSV/SQL File
+
+### 
 ## Release Notes
-### Current Tag: v0.7.6.7
-### Beta++
+### Current Tag: v1.0.0
+### First Release
