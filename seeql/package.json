@@ -1,6 +1,7 @@
 {
   "name": "seeql",
   "displayName": "SeeQL",
+  "publisher": "SeeQL",
   "description": "",
   "version": "0.0.1",
   "engines": {
