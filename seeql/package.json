@@ -31,7 +31,7 @@
       },
       {
         "command": "seeql.generateSQLQuery",
-        "title": "SeeQL: General SQL Query"
+        "title": "SeeQL: Generate SQL Query"
       },
       {
         "command": "seeql.createDB",
