@@ -87,10 +87,10 @@ function getWebviewContent(): string {
         <head>
             <style>
                 body { font-family: Arial, sans-serif; padding: 20px; }
-                input, button { padding: 10px; margin-top: 10px; width: 100%; font-size: 16px; }
+                input, button { padding: 10px; margin-top: 10px; width: 90%; font-size: 16px; }
                 button { background-color: #007acc; color: white; border: none; cursor: pointer; }
                 button:hover { background-color: #005f99; }
-                pre { background: #f4f4f4; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; }
+                pre { background: #f4f4f4; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; color: black;}
             </style>
         </head>
         <body>

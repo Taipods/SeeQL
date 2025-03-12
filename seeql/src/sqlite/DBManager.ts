@@ -52,7 +52,7 @@ export async function openDB(dbPath: string): Promise<sqlite3.Database | null> {
             reject(err);
         } else {
             vscode.window.showInformationMessage('Database opened: ' + path.basename(dbPath));
-            printDBTableNames(db);
+            printDBTableNames(db, path.basename(dbPath));
             resolve(db);
         }
     });

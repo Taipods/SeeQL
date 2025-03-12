@@ -57,7 +57,7 @@ export async function runQueryTest(db: sqlite3.Database, query: string): Promise
 // @Param: db - the database object
 // @Return: void
 // @exceptions: Throws an error if the query fails
-export async function printDBTableNames(db: sqlite3.Database) {
+export async function printDBTableNames(db: sqlite3.Database, panelTitle: string) {
     const printDB = `SELECT name
                      FROM sqlite_master
                      WHERE type = 'table'
@@ -70,7 +70,7 @@ export async function printDBTableNames(db: sqlite3.Database) {
         } else {
             const panel = vscode.window.createWebviewPanel(
                 'sqliteResults',
-                'SQLite Query Results',
+                panelTitle,
                 vscode.ViewColumn.One,
                 { enableScripts: true } // enables to run scripts in the webview
             );
