@@ -36,23 +36,16 @@ N/A
 
 ## Known Issues
 
-N/A
+*Using Create DB twice on the same CSV Causes empty DB*
+*database structure visulizer tabs duplicates columns name if table is empty*
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+First release of SeeQL
 
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release of SeeQL
 
 ---
 
