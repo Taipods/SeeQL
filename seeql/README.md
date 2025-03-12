@@ -2,23 +2,8 @@
 
 SeeQL is an extension meant to help users when it comes to working with SQL on Visual Studio Code. Overall, it’s meant to help users' overall quality of life when it comes to working with it. Through visualization, helping build SQL queries, and simplifying issues that come with working with SQL. Issues like making up your own SQL statements, knowing if you have the expected output, and visualizing in general. SQL, at times, feels very difficult to work with. We want our extension to make it feel as simple as possible for the user.
 
-## How to use system
-Steps:
-1. Open Command Line
 
-![Alt text](seeql/media/Images/Step1.png)
-
-2. Find any SeeQL Command Lines
-
-![Alt text](seeql/media/Images/Step2.png)
-
-3. Select any single one command line
-4. Choose a related SeeQl file to that command line. Refer to command lines below for reference of that 
-
-5. Once selected, visualization of that SQL file should be up whether Er Diagram, Relational Algebra, etc.
-
-![Alt text](seeql/media/Images/Step4.png)
-## Specific commands demo
+## Features
 
 ### OpenDB:
 - Opens a .db file to run querries
