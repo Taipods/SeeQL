@@ -30,12 +30,8 @@
         "title": "SeeQL: Open Database"
       },
       {
-        "command": "seeql.runQuery",
-        "title": "SeeQL: Run SQL Query"
-      },
-      {
         "command": "seeql.generateSQLQuery",
-        "title": "SeeQL: Generate SQL Query"
+        "title": "SeeQL: General SQL Query"
       },
       {
         "command": "seeql.createDB",
@@ -63,7 +59,6 @@
     "@vscode/test-electron": "^2.4.1"
   },
   "dependencies": {
-    "@mistralai/mistralai": "^1.5.1",
     "@vscode/test-electron": "^2.4.1",
     "axios": "^1.8.1",
     "csv-parser": "^3.2.0",
