@@ -42,7 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
 				db = await pullDB();
 				// Seems like it's not posting the message
 				if (db !== null) {
-					vscode.window.showInformationMessage("Open sesame");
+					vscode.window.showInformationMessage("Open database");
 				}
 			})
 		);
@@ -53,7 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
 			db = await createDB();
 			// Seems like it's not posting the message
 			if (db !== null) {
-				vscode.window.showInformationMessage("plzsplsplzlzplpzlz");
+				vscode.window.showInformationMessage("Sucessfully created Database");
 				}
 			})
 		);
