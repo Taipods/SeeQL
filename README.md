@@ -121,6 +121,10 @@ Steps:
 
  ![createRelationalGif](https://github.com/user-attachments/assets/7c0076b4-a387-45b0-84af-c292c827d48d)
 
+### GenerateSQLQuery
+- Generates SQL queries based on a user-provided natural language description
+- Analyzes the connected database's schema to generate context-aware SQL queries
+- Allows direct execution by pasting the generated query into an SQL file and running it
 
 ## Release Notes
 ### Current Tag: v0.7.6.7
