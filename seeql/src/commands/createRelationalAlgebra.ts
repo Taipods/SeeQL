@@ -51,9 +51,7 @@ export async function createRelationalAlgebra() {
     );
 
     const sqlContent = fileContent.toString();
-    //const ast = new SqlParser().astify(sqlContent);
-    const parser = new SqlParser();
-    const ast = parser.astify(sqlContent, { database: 'postgresql' });
+    const ast = new SqlParser().astify(sqlContent);
     filePanel.webview.html = showTableNames(fileContents);
     createRelationalAlgebra.webview.html = showRelationalAlgebra(ast);
 }
@@ -108,7 +106,6 @@ function showRelationalAlgebra(ast: any): string {
               <tr><td><b>π</b></td><td>Projection</td></tr>
               <tr><td><b>⋈</b></td><td>Join (with embedded conditions)</td></tr>
               <tr><td><b>γ</b></td><td>Grouping</td></tr>
-              <tr><td><b>-</b></td><td>Difference (EXCEPT)</td></tr>
             </table>
           </div>
         </body>
@@ -184,17 +181,8 @@ export function convertToRelationalAlgebra(ast: any): string {
                 const right = convertClause(expr.right, op);
                 return `${left} ${op} ${right}`;
             } else if (expr.type === 'column_ref') {
-                // Safely handle node-sql-parser's objects
-                let tableName = (expr.table && typeof expr.table === 'object') ? expr.table.value : "";
-                if (typeof expr.table === "string") {
-                    tableName = expr.table;
-                }
-                const columnName = (expr.column && typeof expr.column === 'object')
-                ? expr.column.expr.value
-                : expr.column;
-                // Apply alias mapping
-                const mappedTable = tableName ? (translationMapping[tableName] || tableName) : '';
-                return mappedTable ? `${mappedTable}.${columnName}` : columnName;
+                const tbl = expr.table ? (translationMapping[expr.table] || expr.table) : '';
+                return tbl ? `${tbl}.${expr.column}` : expr.column;
             } else if (expr.type === 'aggr_func') {
                 const argStr = expr.args && expr.args.expr ? convertClause(expr.args.expr) : '';
                 return `${expr.name}(${argStr})`;
@@ -294,7 +282,9 @@ export function convertToRelationalAlgebra(ast: any): string {
 
         // Process selection conditions and grouping.
         if (query.groupby && query.groupby.columns && query.groupby.columns.length > 0) {
-            const explicitGroup = query.groupby.columns.map((col: any) => convertClause(col));
+            const explicitGroup = query.groupby.columns.map((col: any) => {
+                return col.table ? `${translationMapping[col.table] || col.table}.${col.column}` : col.column;
+            });
             // Extract aggregates from SELECT clause.
             const aggregateGroupSelect = query.columns.filter((col: any) => col.expr && col.expr.type === 'aggr_func')
                 .map((col: any) => {
@@ -352,20 +342,18 @@ export function convertToRelationalAlgebra(ast: any): string {
         }
 
         // Process Projection.
-        if (query.columns && !(query.columns.length === 1
-            && query.columns[0].expr
-            && query.columns[0].expr.type === 'star')) {
-      
+        if (query.columns && !(query.columns.length === 1 && query.columns[0].expr && query.columns[0].expr.type === 'star')) {
             const projCols = query.columns.map((col: any) => {
-                if (!col.expr) return '';
-            
-                // Use your existing convertClause for everything
-                const exprStr = convertClause(col.expr);
-            
-                // If there's an alias, handle that
-                const alias = col.as ? (typeof col.as === 'object' ? col.as.value : col.as) : exprStr;
-            
-                return alias;
+                if (col.expr) {
+                    if (col.expr.type === 'column_ref') {
+                        return col.expr.table ? `${translationMapping[col.expr.table] || col.expr.table}.${col.expr.column}` : col.expr.column;
+                    } else if (col.expr.type === 'aggr_func') {
+                        return col.as ? (typeof col.as === 'object' ? (col.as.value || col.as.toString()) : col.as) : convertClause(col.expr);
+                    } else if (col.expr.value) {
+                        return col.expr.value;
+                    }
+                }
+                return '';
             }).filter((s: string) => s !== '').join(', ');
             const projNode = nextId();
             nodes.push(`${projNode}["<b>π</b>: ${projCols}"]`);
@@ -381,6 +369,8 @@ export function convertToRelationalAlgebra(ast: any): string {
             diagramParts.push(`%% Query ${queryCount} is not a SELECT query. Unsupported.`);
             continue;
         }
+        // Currently, we don't support EXCEPT since we're using mysql, which doesn't support set operations
+        // But I still kept this for future in case we want to support other databases.
         if (query.set_op && query.set_op.toUpperCase() === 'EXCEPT' && query._next) {
             const leftPlan = processSelect(query);
             const rightPlan = processSelect(query._next);
@@ -389,7 +379,7 @@ export function convertToRelationalAlgebra(ast: any): string {
                 continue;
             }
             const diffNode = nextId();
-            const diffNodeLabel = `${diffNode}[**_**]`;
+            const diffNodeLabel = `${diffNode}[**-**]`;
             const diffEdgeLeft = `${leftPlan.finalNode} --> ${diffNode}`;
             const diffEdgeRight = `${rightPlan.finalNode} --> ${diffNode}`;
             const combinedNodes = [...leftPlan.nodes, ...rightPlan.nodes, diffNodeLabel];
